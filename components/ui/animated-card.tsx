@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { RefObject } from 'react';
 import { ReactNode } from 'react';
 
 interface AnimatedCardProps {
@@ -17,7 +18,7 @@ export function AnimatedCard({
   className = '',
   duration = 0.7 
 }: AnimatedCardProps) {
-  const { ref, isVisible } = useScrollAnimation({
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '-50px',
   });

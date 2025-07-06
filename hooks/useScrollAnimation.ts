@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, MutableRefObject } from 'react';
 
-interface UseScrollAnimationOptions {
+interface UseScrollAnimationOptions<T extends HTMLElement = HTMLElement> {
   threshold?: number;
   rootMargin?: string;
   triggerOnce?: boolean;
 }
 
-export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>(options: UseScrollAnimationOptions<T> = {}) {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
 
   const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options;
 
@@ -41,5 +41,5 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
     };
   }, [threshold, rootMargin, triggerOnce]);
 
-  return { ref, isVisible };
+  return { ref, isVisible } as const;
 }
