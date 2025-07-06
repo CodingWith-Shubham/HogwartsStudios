@@ -1,0 +1,55 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { ReactNode } from 'react';
+
+interface AnimatedCardProps {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  duration?: number;
+}
+
+export function AnimatedCard({ 
+  children, 
+  delay = 0, 
+  className = '',
+  duration = 0.7 
+}: AnimatedCardProps) {
+  const { ref, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+    rootMargin: '-50px',
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ 
+        opacity: 0, 
+        y: 32,
+        scale: 0.95
+      }}
+      animate={isVisible ? { 
+        opacity: 1, 
+        y: 0,
+        scale: 1
+      } : { 
+        opacity: 0, 
+        y: 32,
+        scale: 0.95
+      }}
+      transition={{
+        duration,
+        delay,
+        ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth feel
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
