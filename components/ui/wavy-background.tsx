@@ -27,7 +27,8 @@ export const WavyBackground = ({
   waveOpacity?: number;
   [key: string]: any;
 }) => {
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const noise = createNoise3D();
   let w: number,
     h: number,
@@ -38,19 +39,32 @@ export const WavyBackground = ({
     canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Ensure component is mounted before using theme
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = resolvedTheme || theme || 'dark'; // Default to dark if no theme
+
   const getSpeed = () => {
+    // Check if device is mobile
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    const mobileSpeedMultiplier = isMobile ? 1 : 1; // Same speed on mobile and desktop
+    
     switch (speed) {
       case "slow":
-        return 0.001;
+        return 0.0005 * mobileSpeedMultiplier; // Slower: reduced from 0.001
       case "fast":
-        return 0.002;
+        return 0.001 * mobileSpeedMultiplier;  // Slower: reduced from 0.002
       default:
-        return 0.001;
+        return 0.0005 * mobileSpeedMultiplier; // Slower default
     }
   };
 
   const init = () => {
     canvas = canvasRef.current;
+    if (!canvas) return;
+    
     ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth;
     h = ctx.canvas.height = window.innerHeight;
@@ -74,29 +88,38 @@ export const WavyBackground = ({
   ];
 
   const getLightModeColors = () => [
-    "#dc2626", // red-600
-    "#ea580c", // orange-600
+    "#3b82f6", // blue-500
+    "#8b5cf6", // violet-500
+    "#06b6d4", // cyan-500
+    "#10b981", // emerald-500
     "#f59e0b", // amber-500
-    "#eab308", // yellow-500
-    "#facc15", // yellow-400
   ];
 
-  const waveColors = colors ?? (theme === 'dark' ? getDarkModeColors() : getLightModeColors());
+  const waveColors = colors ?? (currentTheme === 'dark' ? getDarkModeColors() : getLightModeColors());
 
   // Theme-aware background
   const getBackgroundColor = () => {
     if (backgroundFill) return backgroundFill;
-    return theme === 'dark' ? '#000000' : '#ffffff';
+    return currentTheme === 'dark' ? '#000000' : '#ffffff';
   };
 
   const drawWave = (n: number) => {
     nt += getSpeed();
+    // Responsive wave thickness
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    const responsiveWaveWidth = isMobile ? (waveWidth || 50) * 0.6 : (waveWidth || 50); // 60% thickness on mobile
+    
     for (i = 0; i < n; i++) {
       ctx.beginPath();
-      ctx.lineWidth = waveWidth || 50;
+      ctx.lineWidth = responsiveWaveWidth;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
+        // Mobile-optimized wave parameters
+        const waveFrequency = isMobile ? 700 : 800; // Higher frequency (more waves) on mobile
+        const waveAmplitude = isMobile ? 100 : 100; // Bigger amplitude on mobile
+        const layerOffset = isMobile ? 0.4 : 0.3; // More separation between layers on mobile
+        
+        var y = noise(x / waveFrequency, layerOffset * i, nt) * waveAmplitude;
         ctx.lineTo(x, y + h * 0.5);
       }
       ctx.stroke();
@@ -106,6 +129,7 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
+    if (!ctx) return;
     ctx.fillStyle = getBackgroundColor();
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
@@ -114,11 +138,15 @@ export const WavyBackground = ({
   };
 
   useEffect(() => {
-    init();
+    if (mounted) {
+      init();
+    }
     return () => {
-      cancelAnimationFrame(animationId);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
-  }, [theme]); // Re-initialize when theme changes
+  }, [mounted, currentTheme]); // Re-initialize when mounted or theme changes
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
