@@ -128,7 +128,7 @@ export function Portfolio() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
+    <section id="portfolio" className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
       {/* Background particles */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-2 h-2 bg-yellow-300 rounded-full floating-particle glow-pulse" />
