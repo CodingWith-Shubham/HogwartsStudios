@@ -50,7 +50,7 @@ export function Header() {
                 />
               )}
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
+            <span className="text-xl font-bold font-magical text-black dark:text-white">
               Hogwarts Studios
             </span>
           </div>
