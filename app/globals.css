@@ -79,6 +79,38 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Font family definitions */
+  .font-magical {
+    font-family: var(--font-cinzel), serif;
+  }
+  
+  .font-magical-alt {
+    font-family: var(--font-cormorant-garamond), serif;
+  }
+  
+  .font-body {
+    font-family: var(--font-inter), sans-serif;
+  }
+  
+  .font-body-alt {
+    font-family: var(--font-poppins), sans-serif;
+  }
+  
+  /* Quote and podcast title styles */
+  .font-quote {
+    font-family: var(--font-cormorant-garamond), serif;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+  
+  .font-podcast-title {
+    font-family: var(--font-cormorant-garamond), serif;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
 }
 
 /* Custom button hover effects */

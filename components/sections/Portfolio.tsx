@@ -92,10 +92,10 @@ export function Portfolio() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
             Our Portfolio
           </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
             Explore our diverse collection of creative projects that showcase our expertise across different industries
           </p>
         </div>
@@ -107,10 +107,10 @@ export function Portfolio() {
               <Button
                 variant={selectedCategory === category.id ? 'default' : 'outline'}
                 onClick={() => setSelectedCategory(category.id)}
-                className={selectedCategory === category.id 
+                className={`${selectedCategory === category.id 
                   ? 'btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300' 
                   : 'btn-outline-glow border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300'
-                }
+                } font-body-alt`}
               >
                 {category.name}
               </Button>
@@ -147,12 +147,14 @@ export function Portfolio() {
                 </div>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-foreground">{item.title}</h3>
-                    <Badge variant="outline" className="text-xs text-red-600 border-red-600">
+                    <h3 className={`font-semibold text-foreground ${item.category === 'podcast' ? 'font-podcast-title' : 'font-magical-alt'}`}>
+                      {item.title}
+                    </h3>
+                    <Badge variant="outline" className="text-xs text-red-600 border-red-600 font-body-alt">
                       {categories.find(c => c.id === item.category)?.name}
                     </Badge>
                   </div>
-                  <p className="text-sm text-foreground/70">{item.description}</p>
+                  <p className="text-sm text-foreground/70 font-body-alt">{item.description}</p>
                 </CardContent>
               </Card>
             </AnimatedCard>
@@ -163,7 +165,7 @@ export function Portfolio() {
           <AnimatedCard delay={0.8}>
             <Button 
               size="lg" 
-              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300"
+              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
             >
               View Full Portfolio
             </Button>

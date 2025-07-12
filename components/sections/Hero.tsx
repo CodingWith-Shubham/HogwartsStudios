@@ -28,12 +28,12 @@ export function Hero() {
 
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-red-600 via-yellow-500 to-orange-600 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-red-600 via-yellow-500 to-orange-600 bg-clip-text text-transparent leading-tight font-magical">
             Where Stories
             <br />
             Come to Life
           </h1>
-          <p className="text-xl md:text-2xl text-gray-800 dark:text-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-gray-800 dark:text-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt">
             Professional creative studio bringing your vision to reality through stunning visuals, 
             compelling content, and magical storytelling experiences.
           </p>
@@ -41,7 +41,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               size="lg" 
-              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold shadow-lg transition-all duration-300"
+              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold shadow-lg transition-all duration-300 font-body-alt"
             >
               Book a Session
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -49,7 +49,7 @@ export function Hero() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="btn-outline-glow play-icon-hover border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-8 py-6 text-lg font-semibold transition-all duration-300"
+              className="btn-outline-glow play-icon-hover border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
             >
               <Play className="mr-2 h-5 w-5 play-icon transition-transform duration-300" />
               Watch Showreel

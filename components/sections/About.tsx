@@ -56,10 +56,10 @@ export function About() {
     <section id="about" className="py-20 bg-gradient-to-b from-muted/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
             Why Choose Hogwarts Studios?
           </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
             We transform ideas into compelling visual stories that captivate audiences and drive results
           </p>
         </div>
@@ -77,9 +77,9 @@ export function About() {
                   <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <achievement.icon className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold text-foreground mb-2">{achievement.number}</h3>
-                  <p className="text-lg font-semibold text-red-600 mb-2">{achievement.label}</p>
-                  <p className="text-sm text-foreground/70">{achievement.description}</p>
+                  <h3 className="text-3xl font-bold text-foreground mb-2 font-magical">{achievement.number}</h3>
+                  <p className="text-lg font-semibold text-red-600 mb-2 font-body-alt">{achievement.label}</p>
+                  <p className="text-sm text-foreground/70 font-body-alt">{achievement.description}</p>
                 </CardContent>
               </Card>
             </AnimatedCard>
@@ -99,8 +99,8 @@ export function About() {
                   <div className="flex items-start space-x-4">
                     <div className="w-3 h-3 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full mt-2 flex-shrink-0" />
                     <div>
-                      <h3 className="text-xl font-semibold mb-2">{reason.title}</h3>
-                      <p className="text-foreground/70">{reason.description}</p>
+                      <h3 className="text-xl font-semibold mb-2 font-body-alt">{reason.title}</h3>
+                      <p className="text-foreground/70 font-body-alt">{reason.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -111,7 +111,7 @@ export function About() {
 
         <div className="text-center mt-12">
           <AnimatedCard delay={1.0}>
-            <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm">
+            <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm font-body-alt">
               Trusted by 500+ Creative Professionals
             </Badge>
           </AnimatedCard>

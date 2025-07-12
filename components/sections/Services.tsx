@@ -48,10 +48,10 @@ export function Services() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
             Our Services
           </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
             Comprehensive creative solutions tailored to bring your vision to life with professional excellence
           </p>
         </div>
@@ -70,8 +70,8 @@ export function Services() {
                   <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center mb-4">
                     <service.icon className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl font-bold mb-2">{service.title}</CardTitle>
-                  <CardDescription className="text-foreground/70">
+                  <CardTitle className="text-xl font-bold mb-2 font-magical-alt">{service.title}</CardTitle>
+                  <CardDescription className="text-foreground/70 font-body-alt">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -79,7 +79,7 @@ export function Services() {
                 <CardContent className="relative z-10">
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-foreground/80">
+                      <li key={featureIndex} className="flex items-center text-sm text-foreground/80 font-body-alt">
                         <div className="w-2 h-2 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full mr-2" />
                         {feature}
                       </li>
@@ -87,11 +87,11 @@ export function Services() {
                   </ul>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-red-600">{service.price}</span>
+                    <span className="text-lg font-semibold text-red-600 font-body-alt">{service.price}</span>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="btn-outline-glow border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300"
+                      className="btn-outline-glow border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 font-body-alt"
                     >
                       Learn More
                     </Button>
@@ -106,7 +106,7 @@ export function Services() {
           <AnimatedCard delay={0.4}>
             <Button 
               size="lg" 
-              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300"
+              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
             >
               View All Services
             </Button>

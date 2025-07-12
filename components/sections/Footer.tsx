@@ -35,13 +35,13 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">H</span>
+                <span className="text-white font-bold text-sm font-magical">H</span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
                 Hogwarts Studios
               </span>
             </div>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            <p className="text-foreground/70 text-sm leading-relaxed font-body-alt">
               Where stories come to life. Professional creative studio bringing your vision to reality through stunning visuals and compelling content.
             </p>
             <div className="flex space-x-2">
@@ -60,13 +60,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-foreground font-body-alt">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-foreground/70 hover:text-red-600 transition-colors duration-200 text-sm"
+                    className="text-foreground/70 hover:text-red-600 transition-colors duration-200 text-sm font-body-alt"
                   >
                     {link.name}
                   </a>
@@ -77,13 +77,13 @@ export function Footer() {
 
           {/* Services */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Services</h3>
+            <h3 className="text-lg font-semibold text-foreground font-body-alt">Services</h3>
             <ul className="space-y-2">
               {services.map((service, index) => (
                 <li key={index}>
                   <a
                     href={service.href}
-                    className="text-foreground/70 hover:text-red-600 transition-colors duration-200 text-sm"
+                    className="text-foreground/70 hover:text-red-600 transition-colors duration-200 text-sm font-body-alt"
                   >
                     {service.name}
                   </a>
@@ -94,15 +94,15 @@ export function Footer() {
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Stay Updated</h3>
-            <p className="text-foreground/70 text-sm">
+            <h3 className="text-lg font-semibold text-foreground font-body-alt">Stay Updated</h3>
+            <p className="text-foreground/70 text-sm font-body-alt">
               Subscribe to our newsletter for creative tips, behind-the-scenes content, and special offers.
             </p>
             <div className="flex space-x-2">
               <Input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 text-sm"
+                className="flex-1 text-sm font-body-alt"
               />
               <Button
                 size="icon"
@@ -118,17 +118,17 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-sm text-foreground/70">
+          <div className="text-sm text-foreground/70 font-body-alt">
             <p>&copy; 2024 Hogwarts Studios. All rights reserved.</p>
           </div>
           <div className="flex space-x-6 text-sm">
-            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200">
+            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200 font-body-alt">
               Privacy Policy
             </a>
-            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200">
+            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200 font-body-alt">
               Terms of Service
             </a>
-            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200">
+            <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200 font-body-alt">
               Cookie Policy
             </a>
           </div>

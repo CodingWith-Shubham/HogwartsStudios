@@ -54,10 +54,10 @@ export function Testimonials() {
     <section id="testimonials" className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
             Don't just take our word for it - hear from the creative professionals who trust us with their vision
           </p>
         </div>
@@ -78,7 +78,7 @@ export function Testimonials() {
                     ))}
                   </div>
                   
-                  <p className="text-foreground/80 mb-6 italic">"{testimonial.content}"</p>
+                  <p className="text-foreground/80 mb-6 font-quote">"{testimonial.content}"</p>
                   
                   <div className="flex items-center space-x-3">
                     <Avatar className="w-12 h-12">
@@ -86,9 +86,9 @@ export function Testimonials() {
                       <AvatarFallback>{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-foreground/70">{testimonial.role}</p>
-                      <p className="text-sm text-red-600 font-medium">{testimonial.company}</p>
+                      <h4 className="font-semibold text-foreground font-body-alt">{testimonial.name}</h4>
+                      <p className="text-sm text-foreground/70 font-body-alt">{testimonial.role}</p>
+                      <p className="text-sm text-red-600 font-medium font-body-alt">{testimonial.company}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -100,7 +100,7 @@ export function Testimonials() {
         {/* Client Logos */}
         <div className="text-center">
           <AnimatedCard delay={0.6}>
-            <p className="text-lg font-semibold text-foreground/80 mb-8">Trusted by Leading Brands</p>
+            <p className="text-lg font-semibold text-foreground/80 mb-8 font-body-alt">Trusted by Leading Brands</p>
             <div className="flex flex-wrap justify-center items-center gap-8">
               {clientLogos.map((client, index) => (
                 <AnimatedCard 
@@ -109,7 +109,7 @@ export function Testimonials() {
                   duration={0.5}
                 >
                   <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-lg">{client.logo}</span>
+                    <span className="text-white font-bold text-lg font-magical">{client.logo}</span>
                   </div>
                 </AnimatedCard>
               ))}

@@ -1,8 +1,34 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Poppins, Cinzel, Cormorant_Garamond } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+// Magical serif fonts for logos and hero titles
+const cinzel = Cinzel({ 
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+  display: 'swap',
+});
+
+const cormorantGaramond = Cormorant_Garamond({ 
+  subsets: ['latin'],
+  variable: '--font-cormorant-garamond',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
+
+// Clean fonts for body text
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Hogwarts Studios - Where Stories Come to Life',
@@ -16,7 +42,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} ${poppins.variable} ${cinzel.variable} ${cormorantGaramond.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

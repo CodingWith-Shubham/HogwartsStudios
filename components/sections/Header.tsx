@@ -40,9 +40,9 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">H</span>
+              <span className="text-white font-bold text-sm font-magical">H</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
               Hogwarts Studios
             </span>
           </div>
@@ -53,7 +53,7 @@ export function Header() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-foreground/80 hover:text-foreground transition-colors duration-200"
+                className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-body-alt"
               >
                 {item.name}
               </a>
@@ -78,7 +78,7 @@ export function Header() {
                 {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
             )}
-            <Button className="hidden md:flex btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300">
+            <Button className="hidden md:flex btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300 font-body-alt">
               Book Session
             </Button>
             <Button
@@ -100,13 +100,13 @@ export function Header() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-foreground/80 hover:text-foreground transition-colors duration-200"
+                  className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-body-alt"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </a>
               ))}
-              <Button className="mt-4 btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300">
+              <Button className="mt-4 btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300 font-body-alt">
                 Book Session
               </Button>
             </nav>
