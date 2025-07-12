@@ -49,7 +49,7 @@ export const WavyBackground = ({
   const getSpeed = () => {
     // Check if device is mobile
     const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-    const mobileSpeedMultiplier = isMobile ? 1 : 1; // Same speed on mobile and desktop
+    const mobileSpeedMultiplier = isMobile ? 3 : 1; // Same speed on mobile and desktop
     
     switch (speed) {
       case "slow":
