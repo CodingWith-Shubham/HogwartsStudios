@@ -1,9 +1,13 @@
 'use client';
-
+import logowhite from '@/public/Media/logowhite.png'
+import logoblack from '@/public/Media/logoblack.png'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Instagram, Twitter, Youtube, Linkedin, Mail } from 'lucide-react';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export function Footer() {
   const quickLinks = [
@@ -27,6 +31,10 @@ export function Footer() {
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
   ];
 
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   return (
     <footer className="bg-gradient-to-b from-muted/30 to-background border-t border-border">
       <div className="container mx-auto px-4 py-16">
@@ -34,8 +42,16 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm font-magical">H</span>
+              <div className="w-8 h-8 relative flex items-center justify-center">
+                {mounted && (
+                  <Image
+                    src={resolvedTheme === 'dark' ? logowhite : logoblack}
+                    alt="Hogwarts Studios Logo"
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                )}
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
                 Hogwarts Studios

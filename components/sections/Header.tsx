@@ -1,15 +1,17 @@
 'use client';
-
+import logowhite from '@/public/Media/logowhite.png'
+import logoblack from '@/public/Media/logoblack.png'
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isToggling, setIsToggling] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -18,8 +20,6 @@ export function Header() {
   const handleThemeToggle = () => {
     setIsToggling(true);
     setTheme(theme === 'dark' ? 'light' : 'dark');
-    
-    // Reset animation state after animation completes
     setTimeout(() => {
       setIsToggling(false);
     }, 600);
@@ -34,13 +34,21 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm font-magical">H</span>
+            <div className="w-20 h-[60px] relative flex items-center justify-center">
+              {mounted && (
+                <Image
+                  src={resolvedTheme === 'dark' ? logowhite : logoblack}
+                  alt="Hogwarts Studios Logo"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
+                />
+              )}
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
               Hogwarts Studios
