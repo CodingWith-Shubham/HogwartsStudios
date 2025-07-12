@@ -34,22 +34,22 @@ export function Contact() {
     {
       icon: MapPin,
       title: 'Studio Location',
-      content: '123 Creative District, Arts Quarter, NYC 10001'
+      content: 'D-301, near shalom presidency school, Shushant Lok 2, Sector 56, Gurugram, Ghata, Haryana 122011'
     },
     {
       icon: Phone,
       title: 'Phone',
-      content: '+1 (555) 123-4567'
+      content: '083680 65462'
     },
     {
       icon: Mail,
       title: 'Email',
-      content: 'hello@hogwartsstudios.com'
+      content: 'hogwartsstudios1@gmail.com'
     },
     {
       icon: Clock,
       title: 'Studio Hours',
-      content: 'Mon-Fri: 9AM-7PM, Sat: 10AM-5PM'
+      content: 'Open 24 hours'
     }
   ];
 

@@ -2,22 +2,65 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+
+// Slideshow component for mobile
+function MobileSlideshow() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    '/Media/hogwartsbg1-min.jpeg',
+    '/Media/hogwartsbg2-min.jpeg',
+    '/Media/hogwartsbg3-min.jpeg',
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  return (
+    <div className="absolute inset-0 w-full h-full z-0">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={currentSlide}
+          src={slides[currentSlide]}
+          alt={`Background slide ${currentSlide + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="/Media/finalherobg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Video Background - Only on md and above */}
+      <div className="hidden md:block absolute inset-0 w-full h-full z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/Media/finalherobg.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      {/* Mobile Slideshow - Only on sm and below */}
+      <div className="md:hidden">
+        <MobileSlideshow />
+      </div>
       
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/60 z-10" />
