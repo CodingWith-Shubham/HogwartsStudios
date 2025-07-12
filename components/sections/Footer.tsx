@@ -1,6 +1,6 @@
 'use client';
-import logowhite from '@/public/Media/logowhite.png'
-import logoblack from '@/public/Media/logoblack.png'
+import logowhite from '@/public/Media/logowhite.webp'
+import logoblack from '@/public/Media/logoblack.webp'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
