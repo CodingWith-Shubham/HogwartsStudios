@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AnimatedCard } from '@/components/ui/animated-card';
+import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
 import { Mic, Camera, Palette, Sparkles } from 'lucide-react';
 
 export function Services() {
@@ -58,10 +58,10 @@ export function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <AnimatedCard 
+            <LightweightAnimatedCard 
               key={index} 
-              delay={index * 0.1}
-              duration={1.5} triggerOnce={true}
+              delay={index * 100}
+              duration={600} triggerOnce={true}
             >
               <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -98,19 +98,19 @@ export function Services() {
                   </div>
                 </CardContent>
               </Card>
-            </AnimatedCard>
+            </LightweightAnimatedCard>
           ))}
         </div>
 
         <div className="text-center mt-12">
-                      <AnimatedCard delay={0.4} duration={1.5} triggerOnce={true}>
+          <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
             <Button 
               size="lg" 
               className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
             >
               View All Services
             </Button>
-          </AnimatedCard>
+          </LightweightAnimatedCard>
         </div>
       </div>
     </section>

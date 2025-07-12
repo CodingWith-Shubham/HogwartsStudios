@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { AnimatedCard } from '@/components/ui/animated-card';
+import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
 import { Star } from 'lucide-react';
 
 export function Testimonials() {
@@ -65,10 +65,10 @@ export function Testimonials() {
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
-            <AnimatedCard 
+            <LightweightAnimatedCard 
               key={index} 
-              delay={index * 0.15}
-              duration={1.5} triggerOnce={true}
+              delay={index * 150}
+              duration={600} triggerOnce={true}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -93,28 +93,28 @@ export function Testimonials() {
                   </div>
                 </CardContent>
               </Card>
-            </AnimatedCard>
+            </LightweightAnimatedCard>
           ))}
         </div>
 
         {/* Client Logos */}
         <div className="text-center">
-                      <AnimatedCard delay={0.6} duration={1.5} triggerOnce={true}>
+          <LightweightAnimatedCard delay={600} duration={600} triggerOnce={true}>
             <p className="text-lg font-semibold text-foreground/80 mb-8 font-body-alt">Trusted by Leading Brands</p>
             <div className="flex flex-wrap justify-center items-center gap-8">
               {clientLogos.map((client, index) => (
-                <AnimatedCard 
+                <LightweightAnimatedCard 
                   key={index} 
-                  delay={0.8 + (index * 0.1)}
-                  duration={1.5} triggerOnce={true}
+                  delay={800 + (index * 100)}
+                  duration={600} triggerOnce={true}
                 >
                   <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg hover:scale-110 transition-transform duration-300">
                     <span className="text-white font-bold text-lg font-magical">{client.logo}</span>
                   </div>
-                </AnimatedCard>
+                </LightweightAnimatedCard>
               ))}
             </div>
-          </AnimatedCard>
+          </LightweightAnimatedCard>
         </div>
       </div>
     </section>

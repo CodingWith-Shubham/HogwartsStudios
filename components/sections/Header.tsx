@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Moon, Sun} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LightweightMobileMenu, MenuItem } from '@/components/ui/lightweight-mobile-menu';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -127,25 +127,22 @@ export function Header() {
               aria-controls="mobile-menu"
             >
               <div className="w-5 h-4 flex flex-col justify-between">
-                <motion.span
-                  initial={false}
-                  animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="w-full h-0.5 bg-current block"
+                <span
+                  className={`w-full h-0.5 bg-current block transition-all duration-600 ${
+                    isMenuOpen ? 'rotate-45 translate-y-1.5' : 'rotate-0 translate-y-0'
+                  }`}
                   aria-hidden="true"
                 />
-                <motion.span
-                  initial={false}
-                  animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="w-full h-0.5 bg-current block"
+                <span
+                  className={`w-full h-0.5 bg-current block transition-all duration-600 ${
+                    isMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
                   aria-hidden="true"
                 />
-                <motion.span
-                  initial={false}
-                  animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="w-full h-0.5 bg-current block"
+                <span
+                  className={`w-full h-0.5 bg-current block transition-all duration-600 ${
+                    isMenuOpen ? '-rotate-45 -translate-y-1.5' : 'rotate-0 translate-y-0'
+                  }`}
                   aria-hidden="true"
                 />
               </div>
@@ -154,82 +151,52 @@ export function Header() {
         </div>
 
         {/* Mobile Menu with smooth animations */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              id="mobile-menu"
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={dropdownVariants}
-              className="md:hidden backdrop-blur-md bg-background/95 border-t border-border shadow-xl"
-              role="menu"
-              aria-label="Mobile menu"
-            >
-              <div className="flex flex-col px-4 py-6 space-y-1">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.name}
-                    custom={i}
-                    variants={dropdownItemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    role="none"
-                    className="relative"
-                  >
-                    <a
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="font-body-alt font-medium text-base py-3 px-3 block transition-all duration-300 relative group rounded-xl touch-manipulation text-foreground/80 hover:text-foreground hover:bg-foreground/5 active:bg-foreground/10 active:scale-95"
-                      role="menuitem"
-                      style={{ WebkitTapHighlightColor: "transparent" }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="relative z-10 font-semibold">
-                          {item.name}
-                        </span>
-                      </div>
-
-                      {/* Hover/Active background effect */}
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-foreground/5 to-foreground/10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-300" />
-
-                      {/* Touch ripple effect */}
-                      <div className="absolute inset-0 rounded-xl bg-foreground/20 opacity-0 group-active:opacity-100 transition-opacity duration-150" />
-                    </a>
-                  </motion.div>
-                ))}
-
-                <div className="border-t border-border my-4" />
-
-                <motion.div
-                  custom={navItems.length}
-                  variants={dropdownItemVariants}
-                  className="relative"
-                  role="none"
+        <LightweightMobileMenu isOpen={isMenuOpen} className="md:hidden backdrop-blur-md bg-background/95 border-t border-border shadow-xl">
+          <div className="flex flex-col px-4 py-6 space-y-1">
+            {navItems.map((item, i) => (
+              <MenuItem key={item.name} delay={i * 100} className="relative">
+                <a
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="font-body-alt font-medium text-base py-3 px-3 block transition-all duration-300 relative group rounded-xl touch-manipulation text-foreground/80 hover:text-foreground hover:bg-foreground/5 active:bg-foreground/10 active:scale-95"
+                  role="menuitem"
+                  style={{ WebkitTapHighlightColor: "transparent" }}
                 >
-                  <Button 
-                    className="w-full text-left font-body-alt font-semibold text-base py-3 px-3 block btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300 relative group rounded-xl touch-manipulation active:scale-95"
-                    onClick={() => setIsMenuOpen(false)}
-                    style={{ WebkitTapHighlightColor: "transparent" }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="relative z-10">Book Session</span>
-                      <motion.div
-                        className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center"
-                        whileHover={{ rotate: 90 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                      </motion.div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-300 opacity-0 group-hover:opacity-20 group-active:opacity-30 transition-all duration-300 rounded-xl" />
-                    <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-active:opacity-100 transition-opacity duration-150" />
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  <div className="flex items-center justify-between">
+                    <span className="relative z-10 font-semibold">
+                      {item.name}
+                    </span>
+                  </div>
+
+                  {/* Hover/Active background effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-foreground/5 to-foreground/10 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-300" />
+
+                  {/* Touch ripple effect */}
+                  <div className="absolute inset-0 rounded-xl bg-foreground/20 opacity-0 group-active:opacity-100 transition-opacity duration-150" />
+                </a>
+              </MenuItem>
+            ))}
+
+            <div className="border-t border-border my-4" />
+
+            <MenuItem delay={navItems.length * 100} className="relative">
+              <Button 
+                className="w-full text-left font-body-alt font-semibold text-base py-3 px-3 block btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300 relative group rounded-xl touch-manipulation active:scale-95"
+                onClick={() => setIsMenuOpen(false)}
+                style={{ WebkitTapHighlightColor: "transparent" }}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="relative z-10">Book Session</span>
+                  <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center hover:rotate-90 transition-transform duration-300">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-300 opacity-0 group-hover:opacity-20 group-active:opacity-30 transition-all duration-300 rounded-xl" />
+                <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-active:opacity-100 transition-opacity duration-150" />
+              </Button>
+            </MenuItem>
+          </div>
+        </LightweightMobileMenu>
       </div>
     </header>
   );

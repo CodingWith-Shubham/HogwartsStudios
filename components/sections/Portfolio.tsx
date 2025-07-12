@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 // import { Badge } from '@/components/ui/badge';
-import { AnimatedCard } from '@/components/ui/animated-card';
+import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
 // import { Eye, ExternalLink } from 'lucide-react';
 import type React from "react"
 import Image from 'next/image';
@@ -140,18 +140,18 @@ export function Portfolio() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <AnimatedCard delay={0.2} duration={1.5} triggerOnce={false}>
+          <LightweightAnimatedCard delay={200} duration={600} triggerOnce={false}>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
               Behind the Mic
             </h2>
             <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
               Step into our magical studio and witness the creation of enchanting podcast moments
             </p>
-          </AnimatedCard>
+          </LightweightAnimatedCard>
         </div>
 
         {/* Slideshow Container */}
-        <AnimatedCard delay={0.4} duration={1.5} triggerOnce={false}>
+        <LightweightAnimatedCard delay={400} duration={600} triggerOnce={false}>
           <div className="relative max-w-6xl mx-auto">
             <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm shadow-2xl">
               <div
@@ -236,12 +236,12 @@ export function Portfolio() {
                 />
               ))}
             </div>
-          </div>
-        </AnimatedCard>
+                      </div>
+          </LightweightAnimatedCard>
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <AnimatedCard delay={0.6} duration={1.5} triggerOnce={false}>
+          <LightweightAnimatedCard delay={600} duration={600} triggerOnce={false}>
             <div className="max-w-2xl mx-auto">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground font-magical-alt">
                 Ready to Create Magic?
@@ -256,7 +256,7 @@ export function Portfolio() {
                 Book Your Session
               </Button>
             </div>
-          </AnimatedCard>
+          </LightweightAnimatedCard>
         </div>
       </div>
 

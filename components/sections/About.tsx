@@ -2,9 +2,9 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AnimatedCard } from '@/components/ui/animated-card';
+import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
 import { Trophy, Users, Camera, Award } from 'lucide-react';
-import {useAnimationFrame } from 'framer-motion';
+import { useAnimationFrame } from '@/hooks/useAnimationFrame';
 import { useRef, useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -104,10 +104,10 @@ export function About() {
         {/* Achievements Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {achievements.map((achievement, index) => (
-            <AnimatedCard 
+            <LightweightAnimatedCard 
               key={index} 
               delay={index * 0.15}
-              duration={1.5} triggerOnce={false}
+              duration={600} triggerOnce={false}
             >
               <Card className="text-center border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -121,17 +121,17 @@ export function About() {
                   <p className="text-sm text-foreground/70 font-body-alt">{achievement.description}</p>
                 </CardContent>
               </Card>
-            </AnimatedCard>
+            </LightweightAnimatedCard>
           ))}
         </div>
 
         {/* Reasons to Choose Us */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {reasons.map((reason, index) => (
-            <AnimatedCard 
+            <LightweightAnimatedCard 
               key={index} 
-              delay={0.6 + (index * 0.1)}
-              duration={1.5} triggerOnce={false}
+              delay={600 + (index * 100)}
+              duration={600} triggerOnce={false}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -144,18 +144,16 @@ export function About() {
                   </div>
                 </CardContent>
               </Card>
-            </AnimatedCard>
+            </LightweightAnimatedCard>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <AnimatedCard delay={1.0}>
-                          <AnimatedCard delay={1.0} duration={1.5} triggerOnce={true}>
-              <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm font-body-alt">
-                Trusted by 500+ Creative Professionals
-              </Badge>
-            </AnimatedCard>
-          </AnimatedCard>
+          <LightweightAnimatedCard delay={1000} duration={600} triggerOnce={true}>
+            <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm font-body-alt">
+              Trusted by 500+ Creative Professionals
+            </Badge>
+          </LightweightAnimatedCard>
         </div>
       </div>
     </section>

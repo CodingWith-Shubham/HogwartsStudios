@@ -2,49 +2,34 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LightweightSlideshow } from '@/components/ui/lightweight-slideshow';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 // Slideshow component for mobile
 function MobileSlideshow() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
     '/Media/hogwartsbg1-min.jpeg',
     '/Media/hogwartsbg2-min.jpeg',
     '/Media/hogwartsbg3-min.jpeg',
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [slides.length]);
-
   return (
     <div className="absolute inset-0 w-full h-full z-0">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          className="absolute inset-0 w-full h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-        >
+      <LightweightSlideshow interval={3000}>
+        {slides.map((slide, index) => (
           <Image
-            src={slides[currentSlide]}
-            alt={`Background slide ${currentSlide + 1}`}
+            key={index}
+            src={slide}
+            alt={`Background slide ${index + 1}`}
             fill
             className="object-cover"
-            priority={currentSlide === 0}
+            priority={index === 0}
             sizes="100vw"
             quality={85}
           />
-        </motion.div>
-      </AnimatePresence>
+        ))}
+      </LightweightSlideshow>
     </div>
   );
 }
@@ -86,30 +71,24 @@ export function Hero() {
       {/* Content */}
       <div className="container mx-auto px-4 text-center relative z-30">
         <div className="max-w-4xl mx-auto">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-magical drop-shadow-2xl"
+          <h1 
+            className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-magical drop-shadow-2xl animate-fade-in-up"
+            style={{ animationDelay: '0ms' }}
           >
             Where Stories
             <br />
             Come to Life
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt drop-shadow-lg"
+          </h1>
+          <p 
+            className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt drop-shadow-lg animate-fade-in-up"
+            style={{ animationDelay: '200ms' }}
           >
             Explore, create, and rent podcast spaces that spark imagination.
-          </motion.p>
+          </p>
           
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          <div 
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
+            style={{ animationDelay: '400ms' }}
           >
             <Button 
               size="lg" 
@@ -126,21 +105,19 @@ export function Hero() {
               <Play className="mr-2 h-5 w-5 play-icon transition-transform duration-300" />
               Watch Showreel
             </Button>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30"
+      <div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30 animate-fade-in"
+        style={{ animationDelay: '800ms' }}
       >
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white/30 rounded-full mt-2 animate-pulse" />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
