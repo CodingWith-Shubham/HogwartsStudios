@@ -8,7 +8,7 @@ export function Wavybgm() {
   
   return (
     <WavyBackground 
-      className="max-w-4xl mx-auto lg:pb-40 pb-1" 
+      className="max-w-4xl mx-auto lg:pb-40 pb-20" 
       containerClassName="min-h-[450px] md:min-h-[400px] lg:min-h-[500px]"
     >
       <p className={`text-4xl mt-10 md:text-4xl lg:text-7xl font-bold inter-var text-center ${
