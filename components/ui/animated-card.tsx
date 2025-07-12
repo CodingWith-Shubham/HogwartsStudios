@@ -10,17 +10,20 @@ interface AnimatedCardProps {
   delay?: number;
   className?: string;
   duration?: number;
+  triggerOnce?: boolean;
 }
 
 export function AnimatedCard({ 
   children, 
   delay = 0, 
   className = '',
-  duration = 0.7 
+  duration = 1.5, // slower default
+  triggerOnce = false // default to repeat on scroll
 }: AnimatedCardProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '-50px',
+    triggerOnce,
   });
 
   return (

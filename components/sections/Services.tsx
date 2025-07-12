@@ -61,7 +61,7 @@ export function Services() {
             <AnimatedCard 
               key={index} 
               delay={index * 0.1}
-              duration={0.7}
+              duration={1.5} triggerOnce={false}
             >
               <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -103,7 +103,7 @@ export function Services() {
         </div>
 
         <div className="text-center mt-12">
-          <AnimatedCard delay={0.4}>
+          <AnimatedCard delay={0.4} duration={1.5} triggerOnce={false}>
             <Button 
               size="lg" 
               className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"

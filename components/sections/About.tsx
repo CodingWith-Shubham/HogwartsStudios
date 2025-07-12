@@ -4,6 +4,43 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AnimatedCard } from '@/components/ui/animated-card';
 import { Trophy, Users, Camera, Award } from 'lucide-react';
+import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+function CountUpOnView({ target, duration = 2.5, className = '' }: { target: number, duration?: number, className?: string }) {
+  const { ref, isVisible } = useScrollAnimation<HTMLSpanElement>({ threshold: 0.3, triggerOnce: false });
+  const [display, setDisplay] = useState(0);
+  const started = useRef(false);
+  const startTime = useRef<number | null>(null);
+
+  useAnimationFrame((t) => {
+    if (!isVisible || started.current && display >= target) return;
+    if (!started.current) {
+      started.current = true;
+      startTime.current = t;
+    }
+    const elapsed = (t - (startTime.current ?? t)) / 1000;
+    if (elapsed < duration) {
+      setDisplay(Math.floor((elapsed / duration) * target));
+    } else {
+      setDisplay(target);
+    }
+  });
+
+  useEffect(() => {
+    if (!isVisible) {
+      started.current = false;
+      setDisplay(0);
+    }
+  }, [isVisible]);
+
+  return (
+    <span ref={ref} aria-label={`${target}+`} className={className}>
+      <span aria-hidden="true">{display}+</span>
+    </span>
+  );
+}
 
 export function About() {
   const achievements = [
@@ -70,14 +107,16 @@ export function About() {
             <AnimatedCard 
               key={index} 
               delay={index * 0.15}
-              duration={0.7}
+              duration={1.5} triggerOnce={false}
             >
               <Card className="text-center border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <achievement.icon className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-3xl font-bold text-foreground mb-2 font-magical">{achievement.number}</h3>
+                  <h3 className="text-3xl font-bold text-foreground mb-2 font-magical">
+                    <CountUpOnView target={parseInt(achievement.number)} duration={2.5} />
+                  </h3>
                   <p className="text-lg font-semibold text-red-600 mb-2 font-body-alt">{achievement.label}</p>
                   <p className="text-sm text-foreground/70 font-body-alt">{achievement.description}</p>
                 </CardContent>
@@ -92,7 +131,7 @@ export function About() {
             <AnimatedCard 
               key={index} 
               delay={0.6 + (index * 0.1)}
-              duration={0.7}
+              duration={1.5} triggerOnce={false}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -111,9 +150,11 @@ export function About() {
 
         <div className="text-center mt-12">
           <AnimatedCard delay={1.0}>
-            <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm font-body-alt">
-              Trusted by 500+ Creative Professionals
-            </Badge>
+            <AnimatedCard delay={1.0} duration={1.5} triggerOnce={false}>
+              <Badge variant="outline" className="text-red-600 border-red-600 px-4 py-2 text-sm font-body-alt">
+                Trusted by 500+ Creative Professionals
+              </Badge>
+            </AnimatedCard>
           </AnimatedCard>
         </div>
       </div>

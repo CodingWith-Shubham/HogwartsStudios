@@ -103,7 +103,7 @@ export function Portfolio() {
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (
-            <AnimatedCard key={category.id} delay={index * 0.1}>
+            <AnimatedCard key={category.id} delay={index * 0.1} duration={1.5} triggerOnce={false}>
               <Button
                 variant={selectedCategory === category.id ? 'default' : 'outline'}
                 onClick={() => setSelectedCategory(category.id)}
@@ -124,7 +124,7 @@ export function Portfolio() {
             <AnimatedCard 
               key={`${item.id}-${selectedCategory}`} 
               delay={index * 0.1}
-              duration={0.6}
+              duration={1.5} triggerOnce={false}
             >
               <Card className="group overflow-hidden border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
                 <div className="relative aspect-square overflow-hidden">
@@ -162,7 +162,7 @@ export function Portfolio() {
         </div>
 
         <div className="text-center mt-12">
-          <AnimatedCard delay={0.8}>
+          <AnimatedCard delay={0.8} duration={1.5} triggerOnce={false}>
             <Button 
               size="lg" 
               className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"

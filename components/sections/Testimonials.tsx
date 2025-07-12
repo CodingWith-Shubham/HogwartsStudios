@@ -68,7 +68,7 @@ export function Testimonials() {
             <AnimatedCard 
               key={index} 
               delay={index * 0.15}
-              duration={0.7}
+              duration={1.5} triggerOnce={false}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -99,14 +99,14 @@ export function Testimonials() {
 
         {/* Client Logos */}
         <div className="text-center">
-          <AnimatedCard delay={0.6}>
+          <AnimatedCard delay={0.6} duration={1.5} triggerOnce={false}>
             <p className="text-lg font-semibold text-foreground/80 mb-8 font-body-alt">Trusted by Leading Brands</p>
             <div className="flex flex-wrap justify-center items-center gap-8">
               {clientLogos.map((client, index) => (
                 <AnimatedCard 
                   key={index} 
                   delay={0.8 + (index * 0.1)}
-                  duration={0.5}
+                  duration={1.5} triggerOnce={false}
                 >
                   <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg hover:scale-110 transition-transform duration-300">
                     <span className="text-white font-bold text-lg font-magical">{client.logo}</span>
