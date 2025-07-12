@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
+import { useTheme } from "next-themes";
 
 export const WavyBackground = ({
   children,
@@ -26,6 +27,7 @@ export const WavyBackground = ({
   waveOpacity?: number;
   [key: string]: any;
 }) => {
+  const { theme } = useTheme();
   const noise = createNoise3D();
   let w: number,
     h: number,
@@ -35,6 +37,7 @@ export const WavyBackground = ({
     ctx: any,
     canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const getSpeed = () => {
     switch (speed) {
       case "slow":
@@ -61,14 +64,31 @@ export const WavyBackground = ({
     render();
   };
 
-  const waveColors = colors ?? [
+  // Theme-aware wave colors
+  const getDarkModeColors = () => [
     "#dc2626", // red-600
     "#ea580c", // orange-600
     "#f59e0b", // amber-500
     "#eab308", // yellow-500
     "#facc15", // yellow-400
   ];
-  
+
+  const getLightModeColors = () => [
+    "#dc2626", // red-600
+    "#ea580c", // orange-600
+    "#f59e0b", // amber-500
+    "#eab308", // yellow-500
+    "#facc15", // yellow-400
+  ];
+
+  const waveColors = colors ?? (theme === 'dark' ? getDarkModeColors() : getLightModeColors());
+
+  // Theme-aware background
+  const getBackgroundColor = () => {
+    if (backgroundFill) return backgroundFill;
+    return theme === 'dark' ? '#000000' : '#ffffff';
+  };
+
   const drawWave = (n: number) => {
     nt += getSpeed();
     for (i = 0; i < n; i++) {
@@ -77,7 +97,7 @@ export const WavyBackground = ({
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
         var y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+        ctx.lineTo(x, y + h * 0.5);
       }
       ctx.stroke();
       ctx.closePath();
@@ -86,7 +106,7 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
+    ctx.fillStyle = getBackgroundColor();
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
@@ -98,11 +118,10 @@ export const WavyBackground = ({
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [theme]); // Re-initialize when theme changes
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
-    // I'm sorry but i have got to support it on safari.
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&
