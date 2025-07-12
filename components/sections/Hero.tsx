@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 // Slideshow component for mobile
 function MobileSlideshow() {
@@ -25,16 +26,24 @@ function MobileSlideshow() {
   return (
     <div className="absolute inset-0 w-full h-full z-0">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.div
           key={currentSlide}
-          src={slides[currentSlide]}
-          alt={`Background slide ${currentSlide + 1}`}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
-        />
+        >
+          <Image
+            src={slides[currentSlide]}
+            alt={`Background slide ${currentSlide + 1}`}
+            fill
+            className="object-cover"
+            priority={currentSlide === 0}
+            sizes="100vw"
+            quality={85}
+          />
+        </motion.div>
       </AnimatePresence>
     </div>
   );

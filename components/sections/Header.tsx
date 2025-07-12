@@ -3,7 +3,7 @@ import logowhite from '@/public/Media/logowhite.webp'
 import logoblack from '@/public/Media/logoblack.webp'
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Moon, Sun} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { AnimatedCard } from '@/components/ui/animated-card';
-import { Eye, ExternalLink } from 'lucide-react';
+// import { Eye, ExternalLink } from 'lucide-react';
 import type React from "react"
+import Image from 'next/image';
 
 import {useEffect, useRef } from "react"
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react"
@@ -168,10 +169,14 @@ export function Portfolio() {
                 >
                   {slides.map((slide, index) => (
                     <div key={slide.id} className="w-full h-full flex-shrink-0 relative">
-                      <img
+                      <Image
                         src={slide.image || "/placeholder.svg"}
                         alt={slide.caption}
-                        className="w-full h-full object-cover rounded-lg ken-burns-effect"
+                        fill
+                        className="object-cover rounded-lg ken-burns-effect"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                        quality={85}
+                        priority={index === 0}
                       />
                       {/* Caption Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">

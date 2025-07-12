@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AnimatedCard } from '@/components/ui/animated-card';
 import { Trophy, Users, Camera, Award } from 'lucide-react';
-import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
+import {useAnimationFrame } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
