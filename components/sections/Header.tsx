@@ -27,11 +27,12 @@ export function Header() {
   };
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Gallery', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/#home' },
+    { name: 'Services', href: '/#services' },
+    { name: 'About', href: '/#about' },
+    { name: 'Gallery', href: '/#portfolio' },
+    { name: 'Blog', href: '/blog' }, // Blog link remains unchanged
+    { name: 'Contact', href: '/#contact' },
   ];
 
   // Animation variants for dropdown

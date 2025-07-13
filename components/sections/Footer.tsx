@@ -11,10 +11,10 @@ import { useEffect, useState } from 'react';
 
 export function Footer() {
   const quickLinks = [
-    { name: 'About Us', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About Us', href: '/#about' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Portfolio', href: '/#portfolio' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   const services = [
