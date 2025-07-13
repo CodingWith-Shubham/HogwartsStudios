@@ -12,22 +12,24 @@ function MobileSlideshow() {
     '/Media/hogwartsbg1-min.jpeg',
     '/Media/hogwartsbg2-min.jpeg',
     '/Media/hogwartsbg3-min.jpeg',
+    '/Media/hogwartsbg4-min.jpeg',
   ];
 
   return (
     <div className="absolute inset-0 w-full h-full z-0">
-      <LightweightSlideshow interval={3000}>
+      <LightweightSlideshow interval={4000} className="w-full h-full">
         {slides.map((slide, index) => (
-          <Image
-            key={index}
-            src={slide}
-            alt={`Background slide ${index + 1}`}
-            fill
-            className="object-cover"
-            priority={index === 0}
-            sizes="100vw"
-            quality={85}
-          />
+          <div key={index} className="relative w-full h-full">
+            <Image
+              src={slide}
+              alt={`Background slide ${index + 1}`}
+              fill
+              className="object-cover"
+              priority={index === 0}
+              sizes="100vw"
+              quality={90}
+            />
+          </div>
         ))}
       </LightweightSlideshow>
     </div>
@@ -37,8 +39,8 @@ function MobileSlideshow() {
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background - Only on md and above */}
-      <div className="hidden md:block absolute inset-0 w-full h-full z-0">
+      {/* Video Background - Only on lg and above */}
+      <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
         <video
           autoPlay
           loop
@@ -51,8 +53,8 @@ export function Hero() {
         </video>
       </div>
       
-      {/* Mobile Slideshow - Only on sm and below */}
-      <div className="md:hidden">
+      {/* Mobile/Tablet Slideshow - Only on lg and below */}
+      <div className="lg:hidden">
         <MobileSlideshow />
       </div>
       

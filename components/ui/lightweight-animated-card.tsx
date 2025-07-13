@@ -16,7 +16,7 @@ export function LightweightAnimatedCard({
   children, 
   delay = 0, 
   className = '',
-  duration = 600,
+  duration = 500,
   triggerOnce = false
 }: LightweightAnimatedCardProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
