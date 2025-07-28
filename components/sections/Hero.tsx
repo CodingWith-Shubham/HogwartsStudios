@@ -2,40 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
-import { LightweightSlideshow } from '@/components/ui/lightweight-slideshow';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-
-// Slideshow component for mobile
-function MobileSlideshow() {
-  const slides = [
-    '/Media/hogwartsbg1-min.jpeg',
-    '/Media/hogwartsbg2-min.jpeg',
-    '/Media/hogwartsbg3-min.jpeg',
-    '/Media/hogwartsbg4-min.jpeg',
-  ];
-
-  return (
-    <div className="absolute inset-0 w-full h-full z-0">
-      <LightweightSlideshow interval={4000} className="w-full h-full">
-        {slides.map((slide, index) => (
-          <div key={index} className="relative w-full h-full">
-            <Image
-              src={slide}
-              alt={`Background slide ${index + 1}`}
-              fill
-              className="object-cover"
-              priority={index === 0}
-              sizes="100vw"
-              quality={90}
-            />
-          </div>
-        ))}
-      </LightweightSlideshow>
-    </div>
-  );
-}
-
 export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -46,7 +12,7 @@ export function Hero() {
       
       {/* Mobile/Tablet Slideshow - Only on lg and below */}
       <div className="lg:hidden">
-        <MobileSlideshow />
+       
       </div>
       
       {/* Dark Overlay */}

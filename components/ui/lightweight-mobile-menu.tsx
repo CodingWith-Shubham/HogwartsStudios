@@ -14,7 +14,7 @@ export function LightweightMobileMenu({
   isOpen, 
   children, 
   className = '',
-  duration = 400
+  duration = 900
 }: LightweightMobileMenuProps) {
   return (
     <div

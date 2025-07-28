@@ -111,7 +111,7 @@ export function About() {
             >
               <Card className="text-center border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <achievement.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-3xl font-bold text-foreground mb-2 font-magical">
@@ -130,13 +130,13 @@ export function About() {
           {reasons.map((reason, index) => (
             <LightweightAnimatedCard 
               key={index} 
-              delay={600 + (index * 100)}
+              delay={500 + (index * 50)}
               duration={600} triggerOnce={false}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="w-3 h-3 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-3 h-3 bg-red-600 rounded-full mt-2 flex-shrink-0" />
                     <div>
                       <h3 className="text-xl font-semibold mb-2 font-body-alt">{reason.title}</h3>
                       <p className="text-foreground/70 font-body-alt">{reason.description}</p>

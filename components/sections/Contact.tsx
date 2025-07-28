@@ -20,9 +20,7 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log('Form submitted:', formData);
-    // Reset form
     setFormData({ name: '', email: '', phone: '', service: '', message: '' });
   };
 
@@ -64,9 +62,7 @@ export function Contact() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4  font-sans">
-            Let's Create Together
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-sans">Let's Create Together</h2>
           <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
             Ready to bring your creative vision to life? Get in touch with us to discuss your project and book a session
           </p>
@@ -103,7 +99,7 @@ export function Contact() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="phone" className="font-body-alt">Phone Number</Label>
@@ -131,7 +127,7 @@ export function Contact() {
                     </Select>
                   </div>
                 </div>
-                
+
                 <div>
                   <Label htmlFor="message" className="font-body-alt">Project Details</Label>
                   <Textarea
@@ -143,10 +139,10 @@ export function Contact() {
                     className="mt-2 font-body-alt"
                   />
                 </div>
-                
-                <Button 
-                  type="submit" 
-                  size="lg" 
+
+                <Button
+                  type="submit"
+                  size="lg"
                   className="w-full btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
                 >
                   Send Message & Book Session
@@ -164,8 +160,8 @@ export function Contact() {
               <CardContent className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <info.icon className="h-6 w-6 text-white" />
+                    <div className="flex items-center justify-center flex-shrink-0">
+                      <info.icon className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1 font-body-alt">{info.title}</h3>
@@ -181,7 +177,7 @@ export function Contact() {
               <CardContent className="p-6">
                 <div className="aspect-video bg-gradient-to-br from-red-100 to-yellow-100 dark:from-red-900/20 dark:to-yellow-900/20 rounded-lg flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Camera className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-xl font-semibold mb-2 font-magical-alt">Studio Preview</h3>

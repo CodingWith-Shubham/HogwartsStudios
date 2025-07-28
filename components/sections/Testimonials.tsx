@@ -63,39 +63,43 @@ export function Testimonials() {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {testimonials.map((testimonial, index) => (
-            <LightweightAnimatedCard 
-              key={index} 
-              delay={index * 150}
-              duration={600} triggerOnce={true}
-            >
-              <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  
-                  <p className="text-foreground/80 mb-6 font-quote">"{testimonial.content}"</p>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                      <AvatarFallback>{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h4 className="font-semibold text-foreground font-body-alt">{testimonial.name}</h4>
-                      <p className="text-sm text-foreground/70 font-body-alt">{testimonial.role}</p>
-                      <p className="text-sm text-red-600 font-medium font-body-alt">{testimonial.company}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </LightweightAnimatedCard>
-          ))}
-        </div>
+       {/* Testimonials Grid */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+  {testimonials.map((testimonial, index) => (
+    <LightweightAnimatedCard 
+      key={index} 
+      delay={index * 150}
+      duration={900}
+      triggerOnce={false}
+      animationType={index % 2 === 0 ? 'left' : 'right'} // 👈 Alternate animation
+    >
+      <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
+        <CardContent className="p-6">
+          <div className="flex items-center mb-4">
+            {[...Array(testimonial.rating)].map((_, i) => (
+              <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+            ))}
+          </div>
+          
+          <p className="text-foreground/80 mb-6 font-quote">"{testimonial.content}"</p>
+          
+          <div className="flex items-center space-x-3">
+            <Avatar className="w-12 h-12">
+              <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+              <AvatarFallback>{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+            </Avatar>
+            <div>
+              <h4 className="font-semibold text-foreground font-body-alt">{testimonial.name}</h4>
+              <p className="text-sm text-foreground/70 font-body-alt">{testimonial.role}</p>
+              <p className="text-sm text-red-600 font-medium font-body-alt">{testimonial.company}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </LightweightAnimatedCard>
+  ))}
+</div>
+
 
         {/* Client Logos */}
         <div className="text-center">
@@ -108,7 +112,7 @@ export function Testimonials() {
                   delay={800 + (index * 100)}
                   duration={600} triggerOnce={true}
                 >
-                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg hover:scale-110 transition-transform duration-300">
+                  <div className="flex items-center justify-center w-16 h-16 bg-red-500 rounded-lg hover:scale-110 transition-transform duration-300">
                     <span className="text-white font-bold text-lg font-magical">{client.logo}</span>
                   </div>
                 </LightweightAnimatedCard>

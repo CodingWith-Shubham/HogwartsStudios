@@ -45,44 +45,51 @@ export function Services() {
     }
   ];
 
+  const animations = ['right', 'left', 'right', 'left'] as const;
+
   return (
     <section id="services" className="py-8">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-6">Recommended for you</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <LightweightAnimatedCard 
-              key={index} 
-              delay={index * 100}
-              duration={600}
-              triggerOnce={true}
-            >
-              <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
-                <div className="relative">
-                  <Image 
-                    src={service.image} 
-                    alt={service.title} 
-                    width={400} 
-                    height={250} 
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-                    {service.offer}
-                  </div>
-                </div>
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-bold">{service.title}</h3>
-                    <div className="flex items-center bg-green-600 text-white px-2 py-0.5 rounded-md text-sm">
-                      {service.rating} <Star className="w-3 h-3 ml-1" />
+          {services.map((service, index) => {
+            const animationType = animations[index % animations.length];
+
+            return (
+              <LightweightAnimatedCard 
+                key={index} 
+                delay={index * 100}
+                duration={900}
+                triggerOnce={false}
+                animationType={animationType}
+              >
+                <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
+                  <div className="relative">
+                    <Image 
+                      src={service.image} 
+                      alt={service.title} 
+                      width={400} 
+                      height={250} 
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+                      {service.offer}
                     </div>
                   </div>
-                  <p className="text-foreground/70 text-sm mb-2">{service.features.join(' • ')}</p>
-                  <p className="text-sm font-semibold">{service.price}</p>
-                </CardContent>
-              </Card>
-            </LightweightAnimatedCard>
-          ))}
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-lg font-bold">{service.title}</h3>
+                      <div className="flex items-center bg-green-600 text-white px-2 py-0.5 rounded-md text-sm">
+                        {service.rating} <Star className="w-3 h-3 ml-1 text-white" />
+                      </div>
+                    </div>
+                    <p className="text-foreground/70 text-sm mb-2">{service.features.join(' • ')}</p>
+                    <p className="text-sm font-semibold">{service.price}</p>
+                  </CardContent>
+                </Card>
+              </LightweightAnimatedCard>
+            );
+          })}
         </div>
       </div>
     </section>
