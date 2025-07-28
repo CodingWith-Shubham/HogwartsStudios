@@ -141,10 +141,10 @@ export function Portfolio() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <LightweightAnimatedCard delay={200} duration={600} triggerOnce={false}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4  font-sans">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2  font-sans">
               Behind the Mic
             </h2>
-            <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
+            <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
               Step into our magical studio and witness the creation of enchanting podcast moments
             </p>
           </LightweightAnimatedCard>

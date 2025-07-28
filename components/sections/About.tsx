@@ -93,10 +93,10 @@ export function About() {
     <section id="about" className="py-20 bg-gradient-to-b from-muted/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-sans mb-7">
-            Why Choose Hogwarts Studios?
+          <h2 className="text-3xl md:text-5xl font-bold mb-2 font-sans lg:mb-7">
+            Why Hogwarts ?
           </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
+          <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
             We transform ideas into compelling visual stories that captivate audiences and drive results
           </p>
         </div>
