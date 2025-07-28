@@ -1,116 +1,88 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
-import { Mic, Camera, Palette, Sparkles } from 'lucide-react';
+import { Mic, Camera, Palette, Sparkles, Star } from 'lucide-react';
+import Image from 'next/image';
 
 export function Services() {
   const services = [
     {
       icon: Mic,
       title: 'Podcast Shoot & Edit',
-      description: 'Professional audio recording, video production, and post-production editing for your podcast content.',
-      features: ['4K Video Recording', 'Professional Audio', 'Multi-Camera Setup', 'Complete Post-Production'],
+      image: "/Media/hogwartsbg1-min.jpeg",
+      rating: 4.8,
+      features: ['4K Video Recording', 'Professional Audio'],
+      offer: 'FLAT 50% OFF',
       price: 'Starting at $299'
     },
     {
       icon: Camera,
       title: 'Product Photography',
-      description: 'Stunning product shots with our 10ft Cyclorama Wall and professional lighting setup.',
-      features: ['10ft Cyclorama Wall', '360° Product Views', 'High-Resolution Images', 'Same-Day Delivery'],
+      image: "/Media/hogwartsbg2-min.jpeg",
+      rating: 4.5,
+      features: ['10ft Cyclorama Wall', '360° Product Views'],
+      offer: 'Get items @ $119 only',
       price: 'Starting at $199'
     },
     {
       icon: Palette,
       title: 'Fashion & Makeup Shoot',
-      description: 'Complete fashion photography with professional makeup artists and styling services.',
-      features: ['Professional Makeup', 'Styling Consultation', 'Multiple Looks', 'Retouching Included'],
+      image: "/Media/hogwartsbg3-min.jpeg",
+      rating: 4.9,
+      features: ['Professional Makeup', 'Styling Consultation'],
+      offer: '30% OFF up to $75',
       price: 'Starting at $399'
     },
     {
       icon: Sparkles,
       title: 'Ad & Personal Brand Shoot',
-      description: 'Create compelling visual content for your advertisements and personal brand campaigns.',
-      features: ['Brand Strategy', 'Creative Direction', 'Multiple Deliverables', 'Usage Rights Included'],
+      image: "/Media/hogwartsbg4-min.jpeg",
+      rating: 4.7,
+      features: ['Brand Strategy', 'Creative Direction'],
+      offer: 'FLAT 25% OFF',
       price: 'Starting at $499'
     }
   ];
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
-      {/* Reduced density background particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-red-300 rounded-full floating-particle glow-pulse" />
-        <div className="absolute top-40 right-20 w-3 h-3 bg-yellow-300 rounded-full floating-particle-delayed glow-pulse" />
-        <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-orange-300 rounded-full floating-particle glow-pulse" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
-            Our Services
-          </h2>
-          <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">
-            Comprehensive creative solutions tailored to bring your vision to life with professional excellence
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section id="services" className="py-8">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-6">Recommended for you</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <LightweightAnimatedCard 
               key={index} 
               delay={index * 100}
-              duration={600} triggerOnce={true}
+              duration={600}
+              triggerOnce={true}
             >
-              <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <CardHeader className="relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-yellow-500 rounded-lg flex items-center justify-center mb-4">
-                    <service.icon className="h-6 w-6 text-white" />
+              <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
+                <div className="relative">
+                  <Image 
+                    src={service.image} 
+                    alt={service.title} 
+                    width={400} 
+                    height={250} 
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+                    {service.offer}
                   </div>
-                  <CardTitle className="text-xl font-bold mb-2 font-magical-alt">{service.title}</CardTitle>
-                  <CardDescription className="text-foreground/70 font-body-alt">
-                    {service.description}
-                  </CardDescription>
-                </CardHeader>
-                
-                <CardContent className="relative z-10">
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-foreground/80 font-body-alt">
-                        <div className="w-2 h-2 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-red-600 font-body-alt">{service.price}</span>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="btn-outline-glow border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 font-body-alt"
-                    >
-                      Learn More
-                    </Button>
+                </div>
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-bold">{service.title}</h3>
+                    <div className="flex items-center bg-green-600 text-white px-2 py-0.5 rounded-md text-sm">
+                      {service.rating} <Star className="w-3 h-3 ml-1" />
+                    </div>
                   </div>
+                  <p className="text-foreground/70 text-sm mb-2">{service.features.join(' • ')}</p>
+                  <p className="text-sm font-semibold">{service.price}</p>
                 </CardContent>
               </Card>
             </LightweightAnimatedCard>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
-            <Button 
-              size="lg" 
-              className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
-            >
-              View All Services
-            </Button>
-          </LightweightAnimatedCard>
         </div>
       </div>
     </section>

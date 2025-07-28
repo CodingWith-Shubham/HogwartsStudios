@@ -79,7 +79,7 @@ export function Header() {
                 />
               )}
             </div>
-            <span className="text-[20px] font-bold font-magical text-black dark:text-white">
+            <span className="text-[20px] font-bold font-sans text-black dark:text-white">
               Hogwarts
             </span>
           </div>

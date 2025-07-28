@@ -41,16 +41,7 @@ export function Hero() {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background - Only on lg and above */}
       <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/Media/finalherobg.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+   
       </div>
       
       {/* Mobile/Tablet Slideshow - Only on lg and below */}
@@ -74,7 +65,7 @@ export function Hero() {
       <div className="container mx-auto px-4 text-center relative z-30">
         <div className="max-w-4xl mx-auto">
           <h1 
-            className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-magical drop-shadow-2xl animate-fade-in-up"
+            className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-sans drop-shadow-2xl animate-fade-in-up"
             style={{ animationDelay: '0ms' }}
           >
             Where Stories

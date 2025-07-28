@@ -64,7 +64,7 @@ export function Contact() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4  font-sans">
             Let's Create Together
           </h2>
           <p className="text-xl text-foreground/80 max-w-2xl mx-auto font-body-alt">

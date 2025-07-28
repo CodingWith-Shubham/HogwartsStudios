@@ -21,7 +21,6 @@ export default function Home() {
         <Services />
         <About />
         <Testimonials />
-        <Wavybgm/>
         <Portfolio />
         <Contact />
         <Footer />
