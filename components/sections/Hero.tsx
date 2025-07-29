@@ -1,8 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
+import { BookingModal } from './BookingModal';
+
 export function Hero() {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background - Only on lg and above */}
@@ -52,10 +57,12 @@ export function Hero() {
             <Button 
               size="lg" 
               className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold shadow-lg transition-all duration-300 font-body-alt"
+              onClick={() => setIsBookingModalOpen(true)}
             >
               Book a Session
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
+            <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
             <Button 
               variant="outline" 
               size="lg" 

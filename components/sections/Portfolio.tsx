@@ -10,11 +10,14 @@ import type React from "react"
 import Image from 'next/image';
 
 import {useEffect, useRef } from "react"
-import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react"
+import { ChevronLeft, ChevronRight, Play, Pause, Calendar } from "lucide-react";
+import { BookingModal } from './BookingModal';
+
 export function Portfolio() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const touchStartX = useRef<number | null>(null)
   const touchEndX = useRef<number | null>(null)
@@ -248,18 +251,10 @@ export function Portfolio() {
         <div className="text-center mt-16">
           <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
             <div className="max-w-2xl mx-auto">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground font-magical-alt">
-                Ready to Create Magic?
-              </h3>
-              <p className="text-lg text-foreground/80 mb-8 font-body-alt">
-                Book your podcast recording session and join us in creating enchanting audio experiences
+              <p className="text-xl text-foreground/80 mb-5 font-body-alt">
+                Book your session and join us in creating enchanting experiences
               </p>
-              <Button
-                size="lg"
-                className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt shadow-xl"
-              >
-                Book Your Session
-              </Button>
+              
             </div>
           </LightweightAnimatedCard>
         </div>
