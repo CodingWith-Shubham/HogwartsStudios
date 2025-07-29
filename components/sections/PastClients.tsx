@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Star, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 // Mock framer-motion for this environment
 const motion = {
@@ -396,10 +397,13 @@ const CelebrityCard = ({ client, index }: CelebrityCardProps) => {
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 to-red-700 p-[2px]">
             <div className="w-full h-full rounded-full bg-gray-900 p-1">
               <div className="relative w-full h-full rounded-full overflow-hidden">
-                <img
+                <Image
                   src={client.image}
                   alt={client.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 768px) 80px, 96px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  priority={index < 3}
                 />
               </div>
             </div>

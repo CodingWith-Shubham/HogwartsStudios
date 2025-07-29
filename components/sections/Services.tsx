@@ -73,13 +73,16 @@ export function Services() {
               >
                 <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
                   <div className="relative">
-                    <Image 
-                      src={service.image}
-                      alt={service.title}
-                      width={400}
-                      height={250}
-                      className="w-full h-48 object-cover"
-                    />
+                    <div className="relative w-full h-48">
+                      <Image 
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        className="object-cover"
+                        priority={index < 2} // Preload first 2 images
+                      />
+                    </div>
                     <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
                       {service.offer}
                     </div>
