@@ -55,17 +55,17 @@ export function Services() {
             Recommended for you
           </h2>
           <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
-          Discover what suits you best—don’t miss out on our top picks
+          Discover what suits you best—don't miss out on our top picks
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {services.map((service, index) => {
             const animationType = animations[index % animations.length];
 
             return (
               <LightweightAnimatedCard 
-                key={index} 
+                key={index}
                 delay={index * 100}
                 duration={900}
                 triggerOnce={false}
@@ -74,10 +74,10 @@ export function Services() {
                 <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
                   <div className="relative">
                     <Image 
-                      src={service.image} 
-                      alt={service.title} 
-                      width={400} 
-                      height={250} 
+                      src={service.image}
+                      alt={service.title}
+                      width={400}
+                      height={250}
                       className="w-full h-48 object-cover"
                     />
                     <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">

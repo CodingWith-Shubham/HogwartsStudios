@@ -53,14 +53,14 @@ export function Portfolio() {
     {
       id: 6,
       image: "/Media/hogwartsbg6-min.jpeg",
-      caption: "Editing Magic",
-      description: "Transforming raw footage into spellbinding content.",
+      caption: "Studio Lounge",
+      description: "A cozy corner for creative breaks and inspiration.",
     },
     {
       id: 7,
       image: "/Media/hogwartsbg7-min.jpeg",
-      caption: "Studio Lounge",
-      description: "A cozy corner for creative breaks and inspiration.",
+      caption: "Editing Magic",
+      description: "Transforming raw footage into spellbinding content.",
     },
     {
       id: 8,
@@ -178,15 +178,20 @@ export function Portfolio() {
                         quality={85}
                         priority={index === 0}
                       />
-                      {/* Caption Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
-                        <div className="absolute bottom-6 left-6 right-6 text-white">
-                          <h3 className="text-2xl font-bold mb-2 font-magical-alt">{slide.caption}</h3>
-                          <p className="text-lg opacity-90 font-body-alt">{slide.description}</p>
-                        </div>
-                      </div>
                     </div>
                   ))}
+                </div>
+
+                {/* Always Visible Caption Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg">
+                  <div className="absolute bottom-6 left-6 right-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2 font-magical-alt transition-all duration-700">
+                      {slides[currentSlide].caption}
+                    </h3>
+                    <p className="text-lg opacity-90 font-body-alt transition-all duration-700">
+                      {slides[currentSlide].description}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Navigation Arrows */}
@@ -241,7 +246,7 @@ export function Portfolio() {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <LightweightAnimatedCard delay={600} duration={600} triggerOnce={false}>
+          <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
             <div className="max-w-2xl mx-auto">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground font-magical-alt">
                 Ready to Create Magic?
