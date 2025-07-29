@@ -169,14 +169,16 @@ export function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-b from-background to-muted/30">
+    <section id="testimonials" className="py-10 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4">
         
-<PastClients/>
+      <div className="-mt-8 md:-mt-12">
+          <PastClients/>
+        </div>
       
 
         {/* Client Logos */}
-        <div className="text-center md:mb-20 md:mt-40">
+        <div className="text-center md:mb-20 md:mt-10">
           <LightweightAnimatedCard delay={600} duration={600} triggerOnce={true}>
             <p className="md:text-5xl text-3xl font-semibold text-foreground dark:text-foreground md:mb-4 font-body-alt min-h-[1.2em]">
               <ScrollTriggeredTypewriter text="Trusted By" delay={100} speed={150} />
