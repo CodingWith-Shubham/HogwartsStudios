@@ -68,7 +68,7 @@ export function Services() {
                 key={index}
                 delay={index * 100}
                 duration={900}
-                triggerOnce={false}
+                triggerOnce={true}
                 animationType={animationType}
               >
                 <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">

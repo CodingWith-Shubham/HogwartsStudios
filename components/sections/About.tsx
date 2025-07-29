@@ -9,7 +9,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 function CountUpOnView({ target, duration = 2.5, className = '' }: { target: number, duration?: number, className?: string }) {
-  const { ref, isVisible } = useScrollAnimation<HTMLSpanElement>({ threshold: 0.3, triggerOnce: false });
+  const { ref, isVisible } = useScrollAnimation<HTMLSpanElement>({ threshold: 0.3, triggerOnce: true });
   const [display, setDisplay] = useState(0);
   const started = useRef(false);
   const startTime = useRef<number | null>(null);
@@ -107,7 +107,7 @@ export function About() {
             <LightweightAnimatedCard 
               key={index} 
               delay={index * 0.15}
-              duration={600} triggerOnce={false}
+              duration={600} triggerOnce={true}
             >
               <Card className="text-center border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">
@@ -131,7 +131,7 @@ export function About() {
             <LightweightAnimatedCard 
               key={index} 
               delay={500 + (index * 50)}
-              duration={600} triggerOnce={false}
+              duration={600} triggerOnce={true}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
                 <CardContent className="p-6">

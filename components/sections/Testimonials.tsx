@@ -221,7 +221,7 @@ export function Testimonials() {
               key={index} 
               delay={index * 150}
               duration={900}
-              triggerOnce={false}
+              triggerOnce={true}
               animationType={index % 2 === 0 ? 'left' : 'right'}
             >
               <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 h-full">
@@ -253,7 +253,7 @@ export function Testimonials() {
 
         {/* Client Logos */}
         <div className="text-center md:mb-20 md:mt-40">
-          <LightweightAnimatedCard delay={600} duration={600} triggerOnce={false}>
+          <LightweightAnimatedCard delay={600} duration={600} triggerOnce={true}>
             <p className="md:text-5xl text-3xl font-semibold text-foreground dark:text-foreground md:mb-4 font-body-alt min-h-[1.2em]">
               <ScrollTriggeredTypewriter text="Trusted By" delay={100} speed={150} />
             </p>

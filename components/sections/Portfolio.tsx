@@ -140,7 +140,7 @@ export function Portfolio() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <LightweightAnimatedCard delay={200} duration={600} triggerOnce={false}>
+          <LightweightAnimatedCard delay={200} duration={600} triggerOnce={true}>
             <h2 className="text-3xl md:text-5xl font-bold mb-2  font-sans">
               Behind the Mic
             </h2>
@@ -151,7 +151,7 @@ export function Portfolio() {
         </div>
 
         {/* Slideshow Container */}
-        <LightweightAnimatedCard delay={400} duration={600} triggerOnce={false}>
+        <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
           <div className="relative max-w-6xl mx-auto">
             <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm shadow-2xl">
               <div
