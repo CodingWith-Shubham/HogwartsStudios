@@ -42,7 +42,7 @@ export default async function BlogList({ searchParams }: { searchParams?: { page
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Header />
       <main className="flex-1 max-w-4xl mx-auto px-6 py-24 w-full">
-        <h1 className="text-5xl ml-20 lg:ml-60 font-bold mb-8 bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent font-magical">Latest Blogs</h1>
+        <h1 className="text-5xl ml-20 lg:ml-60 font-bold mb-8 text-foreground font-sans">Latest Blogs</h1>
         <div className="space-y-8">
           {paginatedPosts.map(post => (
             <Link href={`/blog/${post.slug}`} key={post.slug}>
