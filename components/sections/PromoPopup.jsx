@@ -16,7 +16,7 @@ const PromoPopup = () => {
     // Auto-close after 10 seconds
     const autoCloseTimer = setTimeout(() => {
       handleClose();
-    }, 10000);
+    }, 5000);
 
     return () => {
       clearTimeout(showTimer);
@@ -117,7 +117,7 @@ const PromoPopup = () => {
             {/* CTA Button */}
             <button 
               onClick={() => {
-                console.log('Book Now clicked');
+               
                 handleClose();
               }}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold px-6 py-2 md:px-8 md:py-3 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-base md:text-lg"
@@ -131,7 +131,7 @@ const PromoPopup = () => {
           </div>
 
           {/* Bottom decorative border */}
-          <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-red-600 via-yellow-400 to-red-600"></div>
+         
         </div>
       </div>
     </div>
