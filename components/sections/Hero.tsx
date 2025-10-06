@@ -39,15 +39,16 @@ export function Hero() {
             className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-sans drop-shadow-2xl animate-fade-in-up"
             style={{ animationDelay: '0ms' }}
           >
-            Where Stories
+            Where Creativity
             <br />
-            Come to Life
+            Finds Its Frame
           </h1>
           <p 
             className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt drop-shadow-lg animate-fade-in-up"
             style={{ animationDelay: '200ms' }}
           >
-            Explore, create, and rent podcast spaces that spark imagination.
+            Your one-stop studio for professional shoots — product, fashion, podcast, outdoor, and more — crafted with cinematic precision.
+
           </p>
           
           <div 
@@ -69,7 +70,7 @@ export function Hero() {
               className="btn-outline-glow play-icon-hover border-2 border-red-600 text-red-600 bg-white hover:bg-red-600 hover:text-white dark:border-white dark:text-white dark:bg-transparent dark:hover:bg-white/10 px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
             >
               <Play className="mr-2 h-5 w-5 play-icon transition-transform duration-300" />
-              Watch Showreel
+              Studio Walkthrough
             </Button>
           </div>
         </div>

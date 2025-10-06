@@ -9,7 +9,7 @@ export function Services() {
   const services = [
     {
       icon: Mic,
-      title: 'Podcast Shoot & Edit',
+      title: 'SETS ON RENT',
       image: "/Media/hogwartsbg1-min.jpeg",
       rating: 4.8,
       features: ['4K Video Recording', 'Professional Audio'],
@@ -18,7 +18,7 @@ export function Services() {
     },
     {
       icon: Camera,
-      title: 'Product Photography',
+      title: 'SETS + SHOOT',
       image: "/Media/hogwartsbg2-min.jpeg",
       rating: 4.5,
       features: ['10ft Cyclorama Wall', '360° Product Views'],
@@ -27,7 +27,7 @@ export function Services() {
     },
     {
       icon: Palette,
-      title: 'Fashion & Makeup Shoot',
+      title: ' SET + SHOOT + EDIT',
       image: "/Media/hogwartsbg3-min.jpeg",
       rating: 4.9,
       features: ['Professional Makeup', 'Styling Consultation'],
@@ -36,7 +36,7 @@ export function Services() {
     },
     {
       icon: Sparkles,
-      title: 'Ad & Personal Brand Shoot',
+      title: 'SOCIAL MEDIA MANAGEMENT AND MARKETING ',
       image: "/Media/hogwartsbg4-min.jpeg",
       rating: 4.7,
       features: ['Brand Strategy', 'Creative Direction'],
@@ -52,7 +52,7 @@ export function Services() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-2 font-sans lg:mb-7">
-            Recommended for you
+          Services We Master At 
           </h2>
           <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
           Discover what suits you best—don't miss out on our top picks

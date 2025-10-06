@@ -23,9 +23,7 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
     address: '',
     facilityType: initialData.facilityType || '',
     message: initialData.message || '',
-    honeypot: '', // Spam protection
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -58,11 +56,9 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
         address: '',
         facilityType: '',
         message: '',
-        honeypot: '',
       });
       setErrors({});
       setIsSuccess(false);
-      setIsLoading(false);
     }
   }, [isOpen]);
 
@@ -101,53 +97,46 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Check honeypot
-    if (formData.honeypot) {
-      return; // Likely spam
-    }
 
     if (!validateForm()) {
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: '28c7a933-3db8-41dc-b1d7-48b34057802c',
-          name: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          address: formData.address,
-          facility_type: formData.facilityType,
-          message: formData.message,
-          subject: `New Booking Request from ${formData.fullName}`,
-        }),
-      });
-
-      if (response.ok) {
-        setIsSuccess(true);
-        // Auto-close modal after 3 seconds
-        setTimeout(() => {
-          onClose();
-        }, 3000);
-      } else {
-        throw new Error('Failed to submit form');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setErrors({ submit: 'Failed to send message. Please try again.' });
-    } finally {
-      setIsLoading(false);
+    // Construct WhatsApp message
+    let whatsappMessage = `*New Booking Request*\n\n`;
+    whatsappMessage += `*Name:* ${formData.fullName}\n`;
+    whatsappMessage += `*Email:* ${formData.email}\n`;
+    whatsappMessage += `*Phone:* ${formData.phone}\n`;
+    
+    if (formData.address.trim()) {
+      whatsappMessage += `*Address:* ${formData.address}\n`;
     }
+    
+    whatsappMessage += `*Facility Type:* ${formData.facilityType}\n`;
+    
+    if (formData.message.trim()) {
+      whatsappMessage += `*Message:* ${formData.message}\n`;
+    }
+
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp number (without + sign, spaces, or special characters)
+    const whatsappNumber = '918368065462';
+    
+    // Open WhatsApp with pre-filled message
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappURL, '_blank');
+
+    // Show success message
+    setIsSuccess(true);
+    
+    // Auto-close modal after 2 seconds
+    setTimeout(() => {
+      onClose();
+    }, 2000);
   };
 
   if (!isOpen) return null;
@@ -182,9 +171,9 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
                 <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-foreground mb-1">Thank You!</h3>
+                <h3 className="text-base font-semibold text-foreground mb-1">Opening WhatsApp...</h3>
                 <p className="text-foreground/70 text-xs">
-                  Your booking request has been sent. We'll get back to you soon!
+                  Please send the message in WhatsApp to complete your booking request.
                 </p>
               </div>
             </div>
@@ -195,17 +184,6 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
         {!isSuccess && (
           <div className="max-h-[calc(90vh-80px)] overflow-y-auto">
             <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-3">
-              {/* Honeypot field - hidden from users */}
-              <input
-                type="text"
-                name="honeypot"
-                value={formData.honeypot}
-                onChange={handleInputChange}
-                style={{ display: 'none' }}
-                tabIndex={-1}
-                autoComplete="off"
-              />
-
               {/* Two-column layout for larger screens */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Full Name */}
@@ -330,28 +308,13 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
                 </div>
               </div>
 
-              {/* Submit Error */}
-              {errors.submit && (
-                <p className="text-red-500 text-xs">{errors.submit}</p>
-              )}
-
               {/* Submit Button */}
               <Button
                 type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 text-sm rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 text-sm rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
               >
-                {isLoading ? (
-                  <>
-                    <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-3 h-3" />
-                    <span>Send Message</span>
-                  </>
-                )}
+                <Send className="w-3 h-3" />
+                <span>Send via WhatsApp</span>
               </Button>
             </form>
           </div>

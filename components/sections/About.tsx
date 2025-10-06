@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
-import { Trophy, Users, Camera, Award } from 'lucide-react';
+import { Mic2, Video, Megaphone, TrendingUp } from 'lucide-react';
 import { useAnimationFrame } from '@/hooks/useAnimationFrame';
 import { useRef, useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
@@ -45,47 +45,41 @@ function CountUpOnView({ target, duration = 2.5, className = '' }: { target: num
 export function About() {
   const achievements = [
     {
-      icon: Trophy,
-      number: '100+',
+      icon: Mic2,
+      number: '1500+',
       label: 'Podcasts Delivered',
-      description: 'Successfully produced and delivered over 100 podcast episodes'
+      description: 'Successfully produced and delivered over 1500 podcasts'
     },
     {
-      icon: Users,
-      number: '500+',
-      label: 'Happy Clients',
-      description: 'Satisfied customers who trust us with their creative vision'
+      icon: Video,
+      number: '4000+',
+      label: 'Reels Created',
+      description: 'Engaging short-form video content that captures attention'
     },
     {
-      icon: Camera,
-      number: '1000+',
-      label: 'Projects Completed',
-      description: 'Diverse range of creative projects across multiple industries'
-    },
-    {
-      icon: Award,
-      number: '50+',
-      label: 'Awards Won',
-      description: 'Recognition for excellence in creative storytelling and production'
+      icon: Megaphone,
+      number: '100+',
+      label: 'Brand Campaigns',
+      description: 'Successful marketing campaigns that drive brand growth'
     }
   ];
 
   const reasons = [
     {
-      title: 'State-of-the-Art Equipment',
-      description: 'Professional-grade cameras, lighting, and audio equipment for pristine quality'
+      title: 'Multiple Premium Sets',
+      description: '3 premium podcast sets , Moroccan theme, chroma wall, and cyclorama – ready for any shoot style'
     },
     {
-      title: 'Creative Expertise',
-      description: 'Experienced team of photographers, videographers, and creative directors'
+      title: 'End-to-End Services',
+      description: 'Concept, shoot, edit, sound design, and edit – all under one roof'
     },
     {
       title: 'Flexible Packages',
       description: 'Customizable service packages to fit your budget and requirements'
     },
     {
-      title: 'Quick Turnaround',
-      description: 'Fast delivery without compromising on quality or attention to detail'
+      title: 'Located in the Heart of Gurgaon',
+      description: 'Easily accessible for brands, influencers, and agencies across Delhi / NCR'
     }
   ];
 
@@ -102,7 +96,7 @@ export function About() {
         </div>
 
         {/* Achievements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 lg:ml-64">
           {achievements.map((achievement, index) => (
             <LightweightAnimatedCard 
               key={index} 

@@ -23,11 +23,7 @@ export default function Contact() {
   });
 
   const [showMap, setShowMap] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  // Replace this with your actual Web3Forms access key
-  const WEB3FORMS_ACCESS_KEY = '28c7a933-3db8-41dc-b1d7-48b34057802c';
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -37,47 +33,68 @@ export default function Contact() {
     }
   };
 
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setSubmitStatus('error');
+      return false;
+    }
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setSubmitStatus('error');
+      return false;
+    }
+    if (!formData.phone.trim()) {
+      setSubmitStatus('error');
+      return false;
+    }
+    if (!formData.service) {
+      setSubmitStatus('error');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
 
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: formData.service,
-          message: formData.message,
-          subject: `New inquiry from ${formData.name} - ${formData.service}`,
-        }),
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+    if (!validateForm()) {
+      return;
     }
+
+    // Construct WhatsApp message
+    let whatsappMessage = `*New Contact Form Inquiry*\n\n`;
+    whatsappMessage += `*Name:* ${formData.name}\n`;
+    whatsappMessage += `*Email:* ${formData.email}\n`;
+    whatsappMessage += `*Phone:* ${formData.phone}\n`;
+    whatsappMessage += `*Service:* ${formData.service}\n`;
+    
+    if (formData.message.trim()) {
+      whatsappMessage += `\n*Project Details:*\n${formData.message}`;
+    }
+
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp number
+    const whatsappNumber = '918368065462';
+    
+    // Open WhatsApp with pre-filled message
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappURL, '_blank');
+
+    // Show success message
+    setSubmitStatus('success');
+    
+    // Reset form after 2 seconds
+    setTimeout(() => {
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+      setSubmitStatus('idle');
+    }, 2000);
   };
 
   const studioAddress = 'D-301, near shalom presidency school, Shushant Lok 2, Sector 56, Gurugram, Ghata, Haryana 122011';
@@ -86,7 +103,7 @@ export default function Contact() {
   const contactInfo = [
     { icon: MapPin, title: 'Studio Location', content: studioAddress },
     { icon: Phone, title: 'Phone', content: '083680 65462' },
-    { icon: Mail, title: 'Email', content: 'hogwartsstudios1@gmail.com' },
+    { icon: Mail, title: 'Email', content: 'info@hogwartsstudios.com' },
     { icon: Clock, title: 'Studio Hours', content: 'Open 24 hours' }
   ];
 
@@ -118,7 +135,6 @@ export default function Contact() {
                       required 
                       className="mt-2" 
                       placeholder="Enter your full name"
-                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -131,7 +147,6 @@ export default function Contact() {
                       required 
                       className="mt-2" 
                       placeholder="Enter your email"
-                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -147,7 +162,6 @@ export default function Contact() {
                       required 
                       className="mt-2" 
                       placeholder="Enter your phone number"
-                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
@@ -155,16 +169,15 @@ export default function Contact() {
                     <Select 
                       value={formData.service} 
                       onValueChange={(value) => handleChange('service', value)}
-                      disabled={isSubmitting}
                     >
                       <SelectTrigger className="mt-2">
                         <SelectValue placeholder="Choose a service" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="podcast">Podcast Shoot & Edit</SelectItem>
-                        <SelectItem value="product">Product Photography</SelectItem>
-                        <SelectItem value="fashion">Fashion & Makeup Shoot</SelectItem>
-                        <SelectItem value="brand">Ad & Personal Brand Shoot</SelectItem>
+                        <SelectItem value="Podcast Shoot & Edit">Podcast Shoot & Edit</SelectItem>
+                        <SelectItem value="Product Photography">Product Photography</SelectItem>
+                        <SelectItem value="Fashion & Makeup Shoot">Fashion & Makeup Shoot</SelectItem>
+                        <SelectItem value="Ad & Personal Brand Shoot">Ad & Personal Brand Shoot</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -178,7 +191,6 @@ export default function Contact() {
                     onChange={(e) => handleChange('message', e.target.value)}
                     placeholder="Tell us about your project, timeline, and any specific requirements..."
                     className="mt-2 lg:min-h-[350px] lg:max-h-[400px] min-h-[160px] max-h-[180px] resize-none"
-                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -187,7 +199,7 @@ export default function Contact() {
                   <div className="flex items-center gap-2 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
                     <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
                     <p className="text-green-700 dark:text-green-300 text-sm font-medium">
-                      Message sent successfully! We'll get back to you soon.
+                      Opening WhatsApp... Please send the message to complete your inquiry.
                     </p>
                   </div>
                 )}
@@ -196,7 +208,7 @@ export default function Contact() {
                   <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                     <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
                     <p className="text-red-700 dark:text-red-300 text-sm font-medium">
-                      Failed to send message. Please try again or contact us directly.
+                      Please fill in all required fields correctly.
                     </p>
                   </div>
                 )}
@@ -204,20 +216,10 @@ export default function Contact() {
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-400 disabled:to-gray-500 text-white py-6 text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-6 text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-5 w-5" />
-                      Send Message
-                    </>
-                  )}
+                  <Send className="h-5 w-5" />
+                  Send via WhatsApp
                 </Button>
               </form>
             </CardContent>

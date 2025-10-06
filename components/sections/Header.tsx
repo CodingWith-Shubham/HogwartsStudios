@@ -105,61 +105,7 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Actions */}
-            <div className="flex items-center space-x-4">
-              {mounted && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleThemeToggle}
-                  className={`theme-toggle ${
-                    isToggling 
-                      ? theme === 'dark' 
-                        ? 'switching-to-light' 
-                        : 'switching-to-dark'
-                      : ''
-                  }`}
-                >
-                  {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                </Button>
-              )}
-              <Button 
-                onClick={handleBookSessionClick}
-                className="hidden md:flex btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white transition-all duration-300 font-body-alt"
-              >
-                Book Session
-              </Button>
-              
-              {/* Mobile menu button with animated hamburger */}
-              <button
-                className="md:hidden flex items-center text-foreground hover:text-foreground/80 transition-colors duration-300"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="Toggle menu"
-                aria-expanded={isMenuOpen}
-                aria-controls="mobile-menu"
-              >
-                <div className="w-5 h-4 flex flex-col justify-between">
-                  <span
-                    className={`w-full h-0.5 bg-current block transition-all duration-600 ${
-                      isMenuOpen ? 'rotate-45 translate-y-1.5' : 'rotate-0 translate-y-0'
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className={`w-full h-0.5 bg-current block transition-all duration-600 ${
-                      isMenuOpen ? 'opacity-0' : 'opacity-100'
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className={`w-full h-0.5 bg-current block transition-all duration-600 ${
-                      isMenuOpen ? '-rotate-45 -translate-y-1.5' : 'rotate-0 translate-y-0'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
-              </button>
-            </div>
+          
           </div>
 
           {/* Mobile Menu with smooth animations */}

@@ -280,9 +280,10 @@ const ClientShowcase = () => {
             className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight"
             style={{ animation: 'fadeInUp 0.6s ease-out 0.2s both' }}
           >
-            <span className={isDark ? 'text-white' : 'text-foreground'}>Our</span>{' '}
-            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">Star</span>{' '}
-            <span className={isDark ? 'text-white' : 'text-foreground'}>Clients</span>
+            <span className={isDark ? 'text-white' : 'text-foreground'}>From
+            </span>{' '}
+            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">Client’s</span>{' '}
+            <span className={isDark ? 'text-white' : 'text-foreground'}>Diary</span>
           </h2>
           
           <p 

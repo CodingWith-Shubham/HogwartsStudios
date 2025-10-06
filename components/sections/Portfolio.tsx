@@ -145,10 +145,10 @@ export function Portfolio() {
         <div className="text-center mb-16">
           <LightweightAnimatedCard delay={200} duration={600} triggerOnce={true}>
             <h2 className="text-3xl md:text-5xl font-bold mb-2  font-sans">
-              Behind the Mic
+              Behind the Magic
             </h2>
             <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
-              Step into our magical studio and witness the creation of enchanting podcast moments
+Explore the world of Hogwarts Studios — where every reel, product, and campaign is born from pure creativity.
             </p>
           </LightweightAnimatedCard>
         </div>
