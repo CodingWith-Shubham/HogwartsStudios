@@ -3,7 +3,7 @@ import logowhite from '@/public/Media/logowhite.webp'
 import logoblack from '@/public/Media/logoblack.webp'
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun} from 'lucide-react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { LightweightMobileMenu, MenuItem } from '@/components/ui/lightweight-mobile-menu';
@@ -38,7 +38,7 @@ export function Header() {
     { name: 'Services', href: '/#services' },
     { name: 'About', href: '/#about' },
     { name: 'Gallery', href: '/#portfolio' },
-    { name: 'Blog', href: '/blog' }, // Blog link remains unchanged
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/#contact' },
   ];
 
@@ -105,7 +105,19 @@ export function Header() {
               ))}
             </nav>
 
-          
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-foreground/5 active:bg-foreground/10 transition-colors duration-200"
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6 text-foreground" />
+              ) : (
+                <Menu className="w-6 h-6 text-foreground" />
+              )}
+            </button>
           </div>
 
           {/* Mobile Menu with smooth animations */}

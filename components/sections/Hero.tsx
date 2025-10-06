@@ -36,7 +36,7 @@ export function Hero() {
       <div className="container mx-auto px-4 text-center relative z-30">
         <div className="max-w-4xl mx-auto">
           <h1 
-            className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight font-sans drop-shadow-2xl animate-fade-in-up"
+            className="text-[43px] md:text-7xl font-bold lg:mb-6 sm:mb-3 text-white leading-tight font-sans drop-shadow-2xl animate-fade-in-up"
             style={{ animationDelay: '0ms' }}
           >
             Where Creativity
@@ -44,10 +44,10 @@ export function Hero() {
             Finds Its Frame
           </h1>
           <p 
-            className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt drop-shadow-lg animate-fade-in-up"
+            className="text-[17px] md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed font-medium font-body-alt drop-shadow-lg animate-fade-in-up"
             style={{ animationDelay: '200ms' }}
           >
-            Your one-stop studio for professional shoots — product, fashion, podcast, outdoor, and more — crafted with cinematic precision.
+            Your one-stop studio for professional shoots, product, fashion, podcast, outdoor, and more — crafted with cinematic precision.
 
           </p>
           
