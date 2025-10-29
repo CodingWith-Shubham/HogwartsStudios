@@ -56,7 +56,7 @@ export function Hero() {
           
         />
         <Image
-    src="/media/hogwartsbg8-min.jpeg"
+    src="/Media/hogwartsbg8-min.jpeg"
     alt="Hogwarts Background"
     fill
     className="object-cover"
