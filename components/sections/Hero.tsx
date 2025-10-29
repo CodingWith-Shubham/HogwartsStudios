@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, X } from 'lucide-react';
 import { BookingModal } from './BookingModal';
-
+import Image from 'next/image';
 export function Hero() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -53,9 +53,18 @@ export function Hero() {
         {/* Background Image */}
         <div 
           className="absolute inset-0 w-full h-full z-0 bg-cover bg-center bg-no-repeat opacity-50"
-          style={{ backgroundImage: 'url(/media/hogwartsbg8-min.jpeg)' }}
+          
         />
-        
+        <Image
+    src="/media/hogwartsbg8-min.jpeg"
+    alt="Hogwarts Background"
+    fill
+    className="object-cover"
+    priority
+  />
+   {/* Overlay for opacity */}
+  <div className="absolute inset-0 bg-black/50"></div>
+
         {/* Video Background - Only on lg and above */}
         <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
      
