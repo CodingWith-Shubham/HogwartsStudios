@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Poppins, Cinzel, Cormorant_Garamond } from 'next/font/google';
+import { Inter, Poppins, Cinzel /*, Cormorant_Garamond */ } from 'next/font/google';
 import { ThemeWrapper } from '../components/sections/ThemeWrapper'; // Adjust path as needed
 
 // Magical serif fonts for logos and hero titles
@@ -10,12 +10,12 @@ const cinzel = Cinzel({
   display: 'swap',
 });
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ['latin'],
-  variable: '--font-cormorant-garamond',
-  weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
-});
+// const cormorantGaramond = Cormorant_Garamond({
+//   subsets: ['latin'],
+//   variable: '--font-cormorant-garamond',
+//   weight: ['300', '400', '500', '600', '700'],
+//   display: 'swap',
+// });
 
 // Clean fonts for body text
 const inter = Inter({
@@ -43,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${poppins.variable} ${cinzel.variable} ${cormorantGaramond.variable}`}>
+      <body className={`${inter.className} ${poppins.variable} ${cinzel.variable}`}>
         <ThemeWrapper>
           {children}
         </ThemeWrapper>
