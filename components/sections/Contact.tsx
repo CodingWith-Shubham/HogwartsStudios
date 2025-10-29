@@ -92,8 +92,8 @@ export default function Contact() {
   };
 
   const studioAddress = 'D-301, near shalom presidency school, Shushant Lok 2, Sector 56, Gurugram, Ghata, Haryana 122011';
-  const studioLatitude = '28.418762667669778';
-  const studioLongitude = '77.10015811741602';
+  const studioLatitude = '28.418699567507243';
+  const studioLongitude = '77.10014703443224';
   const googleMapsUrl = `https://www.google.com/maps?q=${studioLatitude},${studioLongitude}`;
 
   const contactInfo = [
