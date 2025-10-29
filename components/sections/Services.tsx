@@ -13,8 +13,7 @@ export function Services() {
       image: "/Media/hogwartsbg1-min.jpeg",
       rating: 4.8,
       features: ['4K Video Recording', 'Professional Audio'],
-      offer: 'FLAT 50% OFF',
-      price: 'Starting at $299'
+      price: 'Starting at ₹ 3500/hour'
     },
     {
       icon: Camera,
@@ -22,8 +21,7 @@ export function Services() {
       image: "/Media/hogwartsbg2-min.jpeg",
       rating: 4.5,
       features: ['10ft Cyclorama Wall', '360° Product Views'],
-      offer: 'Get items @ $119 only',
-      price: 'Starting at $199'
+      price: 'Starting at ₹ 3999 only'
     },
     {
       icon: Palette,
@@ -31,8 +29,7 @@ export function Services() {
       image: "/Media/hogwartsbg3-min.jpeg",
       rating: 4.9,
       features: ['Professional Makeup', 'Styling Consultation'],
-      offer: '30% OFF up to $75',
-      price: 'Starting at $399'
+      price: 'Starting at ₹ 6999 only'
     },
     {
       icon: Sparkles,
@@ -40,8 +37,8 @@ export function Services() {
       image: "/Media/hogwartsbg4-min.jpeg",
       rating: 4.7,
       features: ['Brand Strategy', 'Creative Direction'],
-      offer: 'FLAT 25% OFF',
-      price: 'Starting at $499'
+      
+      price: 'Starting at ₹ 9,999 only'
     }
   ];
 
@@ -80,12 +77,10 @@ export function Services() {
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         className="object-cover"
-                        priority={index < 2} // Preload first 2 images
+                        priority={index < 2}
                       />
                     </div>
-                    <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-                      {service.offer}
-                    </div>
+                    
                   </div>
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
@@ -95,7 +90,7 @@ export function Services() {
                       </div>
                     </div>
                     <p className="text-foreground/70 text-sm mb-2">{service.features.join(' • ')}</p>
-                    <p className="text-sm font-semibold">{service.price}</p>
+                    <p className="text-lg font-semibold">{service.price}</p>
                   </CardContent>
                 </Card>
               </LightweightAnimatedCard>

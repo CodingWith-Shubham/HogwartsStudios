@@ -121,7 +121,7 @@ const PromoPopup = () => {
 
             {/* Date Range */}
             <div className="bg-gray-800 text-white px-4 py-1 md:px-6 md:py-2 rounded-lg font-bold text-xs md:text-base mb-6">
-              25<sup>TH</sup> TO 31<sup>ST</sup> DECEMBER
+             
             </div>
 
             {/* Contact Buttons */}
