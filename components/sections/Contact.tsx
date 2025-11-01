@@ -313,7 +313,7 @@ export default function Contact() {
                 onLoadedData={() => setVideoLoading(false)}
                 preload="none"
               >
-                <source src="/Media/videos/studiotour.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dvolcl889/video/upload/v1762002119/studiotour_lzorns.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

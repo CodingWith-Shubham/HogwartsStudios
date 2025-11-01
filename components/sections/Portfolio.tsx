@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
@@ -8,140 +8,121 @@ import { ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX } from "lucide
 export function Portfolio() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
-  const hasPlayedRef = useRef<boolean>(false);
 
   const videos = [
     {
       id: 1,
-      src: "/Media/videos/set1.mp4",
-      
+      src: "https://res.cloudinary.com/dvolcl889/video/upload/v1762002089/set4_fgxz5w.mp4",
     },
     {
       id: 2,
-      src: "/Media/videos/set2.mp4",
-      
+      src: "https://res.cloudinary.com/dvolcl889/video/upload/v1762002052/set1_at1imi.mp4",
     },
     {
       id: 3,
-      src: "/Media/videos/set3.mp4",
-      
+      src: "https://res.cloudinary.com/dvolcl889/video/upload/v1762002076/set2_hsjjm5.mp4",
     },
     {
       id: 4,
-      src: "/Media/videos/set4.mp4",
-      
+      src: "https://res.cloudinary.com/dvolcl889/video/upload/v1762002057/set3_l29bov.mp4",
     },
   ];
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    hasPlayedRef.current = false;
     setCurrentSlide((prev) => (prev + 1) % videos.length);
     setTimeout(() => setIsTransitioning(false), 700);
-  };
+  }, [isTransitioning, videos.length]);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    hasPlayedRef.current = false;
     setCurrentSlide((prev) => (prev - 1 + videos.length) % videos.length);
     setTimeout(() => setIsTransitioning(false), 700);
-  };
+  }, [isTransitioning, videos.length]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     if (isTransitioning || index === currentSlide) return;
     setIsTransitioning(true);
-    hasPlayedRef.current = false;
     setCurrentSlide(index);
     setTimeout(() => setIsTransitioning(false), 700);
-  };
+  }, [isTransitioning, currentSlide]);
 
-  // Handle video playback
+  // Main effect to handle all video logic
   useEffect(() => {
     const currentVideo = videoRefs.current[currentSlide];
     if (!currentVideo) return;
 
-    // Always reset the video to start
-    currentVideo.currentTime = 0;
-    currentVideo.muted = isMuted;
-    hasPlayedRef.current = false;
-
-    // Remove any existing event listeners
-    const handleEnded = () => {
-      if (!hasPlayedRef.current && isPlaying && !isPaused) {
-        hasPlayedRef.current = true;
-        goToNext();
-      }
-    };
-
-    currentVideo.addEventListener("ended", handleEnded);
-
-    // Play if conditions are met
-    if (isPlaying && !isPaused) {
-      const playPromise = currentVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => console.log("Video play prevented:", err));
-      }
-    } else {
-      currentVideo.pause();
-    }
-
-    return () => {
-      currentVideo.removeEventListener("ended", handleEnded);
-      currentVideo.pause();
-    };
-  }, [currentSlide, isPlaying, isPaused, isMuted]);
-
-  // Pause all non-active videos
-  useEffect(() => {
+    // Pause all other videos first
     videoRefs.current.forEach((video, i) => {
       if (video && i !== currentSlide) {
         video.pause();
         video.currentTime = 0;
       }
     });
-  }, [currentSlide]);
 
-  // Handle play/pause state changes
-  useEffect(() => {
+    // Setup current video
+    currentVideo.currentTime = 0;
+    currentVideo.muted = isMuted;
+
+    // Define the ended handler
+    const handleVideoEnded = () => {
+      console.log('Video ended, moving to next');
+      goToNext();
+    };
+
+    // Add event listener
+    currentVideo.addEventListener('ended', handleVideoEnded);
+
+    // Play if should be playing
+    if (isPlaying) {
+      currentVideo.play().catch(err => {
+        console.log('Play failed:', err);
+      });
+    }
+
+    // Cleanup
+    return () => {
+      currentVideo.removeEventListener('ended', handleVideoEnded);
+    };
+  }, [currentSlide, isPlaying, isMuted, goToNext]);
+
+  const togglePlayPause = () => {
     const currentVideo = videoRefs.current[currentSlide];
     if (!currentVideo) return;
 
-    if (isPlaying && !isPaused) {
-      const playPromise = currentVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => console.log("Video play prevented:", err));
-      }
-    } else {
+    if (isPlaying) {
       currentVideo.pause();
+    } else {
+      currentVideo.play().catch(err => console.log('Play error:', err));
     }
-  }, [isPlaying, isPaused, currentSlide]);
-
-  const togglePlayPause = () => {
-    setIsPlaying((prev) => !prev);
+    setIsPlaying(!isPlaying);
   };
 
   const toggleMute = () => {
-    setIsMuted((prev) => !prev);
-    videoRefs.current.forEach((video) => {
-      if (video) video.muted = !isMuted;
-    });
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+    const currentVideo = videoRefs.current[currentSlide];
+    if (currentVideo) {
+      currentVideo.muted = newMutedState;
+    }
   };
 
   // Swipe handling
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
   };
+
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.targetTouches[0].clientX;
   };
+
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const distance = touchStartX.current - touchEndX.current;
@@ -193,8 +174,7 @@ export function Portfolio() {
                         className="h-full w-auto max-w-full md:w-full md:h-full md:object-cover"
                         playsInline
                         muted={isMuted}
-                        preload={i === 0 ? "auto" : "metadata"}
-                        loop={false}
+                        preload="metadata"
                       >
                         <source src={video.src} type="video/mp4" />
                         Your browser does not support the video tag.
