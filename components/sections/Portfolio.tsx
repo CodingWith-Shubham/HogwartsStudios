@@ -1,135 +1,155 @@
 'use client';
-
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { useState, useEffect, useRef } from 'react';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-// import { Badge } from '@/components/ui/badge';
 import { LightweightAnimatedCard } from '@/components/ui/lightweight-animated-card';
-// import { Eye, ExternalLink } from 'lucide-react';
-import type React from "react"
-import Image from 'next/image';
-
-import {useEffect, useRef } from "react"
-import { ChevronLeft, ChevronRight, Play, Pause, Calendar } from "lucide-react";
-import { BookingModal } from './BookingModal';
+import { ChevronLeft, ChevronRight, Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 export function Portfolio() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isPaused, setIsPaused] = useState(false)
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const touchStartX = useRef<number | null>(null)
-  const touchEndX = useRef<number | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const hasPlayedRef = useRef<boolean>(false);
 
-  const slides = [
+  const videos = [
     {
       id: 1,
-      image: "/Media/hogwartsbg1-min.jpeg",
-      caption: "The Hogwarts Studio Entrance",
-      description: "Step into the magical world where creativity begins.",
+      src: "/Media/videos/set1.mp4",
+      
     },
     {
       id: 2,
-      image: "/Media/hogwartsbg2-min.jpeg",
-      caption: "Enchanting Workspace",
-      description: "Where spells of innovation and artistry are cast.",
+      src: "/Media/videos/set2.mp4",
+     
     },
     {
       id: 3,
-      image: "/Media/hogwartsbg3-min.jpeg",
-      caption: "Studio Gear & Setup",
-      description: "State-of-the-art equipment for magical productions.",
+      src: "/Media/videos/set3.mp4",
+     
     },
     {
       id: 4,
-      image: "/Media/hogwartsbg4-min.jpeg",
-      caption: "Creative Collaboration",
-      description: "Wizards and witches at work, crafting stories together.",
+      src: "/Media/videos/set4.mp4",
+      
     },
-    {
-      id: 5,
-      image: "/Media/hogwartsbg5-min.jpeg",
-      caption: "Recording in Progress",
-      description: "Capturing enchanting audio and visual moments.",
-    },
-    {
-      id: 6,
-      image: "/Media/hogwartsbg6-min.jpeg",
-      caption: "Studio Lounge",
-      description: "A cozy corner for creative breaks and inspiration.",
-    },
-    {
-      id: 7,
-      image: "/Media/hogwartsbg7-min.jpeg",
-      caption: "Editing Magic",
-      description: "Transforming raw footage into spellbinding content.",
-    },
-    {
-      id: 8,
-      image: "/Media/hogwartsbg8-min.jpeg",
-      caption: "The Grand Reveal",
-      description: "Showcasing the final magical masterpiece to the world.",
-    },
-  ]
-  // Auto-play functionality
+  ];
+
+  const goToNext = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    hasPlayedRef.current = false;
+    setCurrentSlide((prev) => (prev + 1) % videos.length);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  const goToPrevious = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    hasPlayedRef.current = false;
+    setCurrentSlide((prev) => (prev - 1 + videos.length) % videos.length);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  const goToSlide = (index: number) => {
+    if (isTransitioning || index === currentSlide) return;
+    setIsTransitioning(true);
+    hasPlayedRef.current = false;
+    setCurrentSlide(index);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  // Handle video playback
   useEffect(() => {
-    if (isPlaying && !isPaused) {
-      intervalRef.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length)
-      }, 2000) // 2 seconds
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+    const currentVideo = videoRefs.current[currentSlide];
+    if (!currentVideo) return;
+
+    // Always reset the video to start
+    currentVideo.currentTime = 0;
+    currentVideo.muted = isMuted;
+    hasPlayedRef.current = false;
+
+    // Remove any existing event listeners
+    const handleEnded = () => {
+      if (!hasPlayedRef.current && isPlaying && !isPaused) {
+        hasPlayedRef.current = true;
+        goToNext();
       }
+    };
+
+    currentVideo.addEventListener("ended", handleEnded);
+
+    // Play if conditions are met
+    if (isPlaying && !isPaused) {
+      const playPromise = currentVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => console.log("Video play prevented:", err));
+      }
+    } else {
+      currentVideo.pause();
     }
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+      currentVideo.removeEventListener("ended", handleEnded);
+      currentVideo.pause();
+    };
+  }, [currentSlide, isPlaying, isPaused, isMuted]);
+
+  // Pause all non-active videos
+  useEffect(() => {
+    videoRefs.current.forEach((video, i) => {
+      if (video && i !== currentSlide) {
+        video.pause();
+        video.currentTime = 0;
       }
+    });
+  }, [currentSlide]);
+
+  // Handle play/pause state changes
+  useEffect(() => {
+    const currentVideo = videoRefs.current[currentSlide];
+    if (!currentVideo) return;
+
+    if (isPlaying && !isPaused) {
+      const playPromise = currentVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => console.log("Video play prevented:", err));
+      }
+    } else {
+      currentVideo.pause();
     }
-  }, [isPlaying, isPaused, slides.length])
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index)
-  }
-
-  const goToPrevious = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-  }
-
-  const goToNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
-  }
+  }, [isPlaying, isPaused, currentSlide]);
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying)
-  }
+    setIsPlaying((prev) => !prev);
+  };
 
-  // Touch handlers for swipe gestures
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+    videoRefs.current.forEach((video) => {
+      if (video) video.muted = !isMuted;
+    });
+  };
+
+  // Swipe handling
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.targetTouches[0].clientX
-  }
-
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX
-  }
-
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
   const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return
-
-    const distance = touchStartX.current - touchEndX.current
-    const isLeftSwipe = distance > 50
-    const isRightSwipe = distance < -50
-
-    if (isLeftSwipe) {
-      goToNext()
-    }
-    if (isRightSwipe) {
-      goToPrevious()
-    }
-  }
+    if (!touchStartX.current || !touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (distance > 50) goToNext();
+    else if (distance < -50) goToPrevious();
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   return (
     <section id="portfolio" className="py-20 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
@@ -142,68 +162,69 @@ export function Portfolio() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center lg:mb-16 mb-2">
           <LightweightAnimatedCard delay={200} duration={600} triggerOnce={true}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-2  font-sans">
-              Behind the Magic
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-2 font-sans">Behind the Magic</h2>
             <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
-Explore the world of Hogwarts Studios — where every reel, product, and campaign is born from pure creativity.
+              Explore the world of Hogwarts Studios — where every reel, product, and campaign is born from pure creativity.
             </p>
           </LightweightAnimatedCard>
         </div>
 
-        {/* Slideshow Container */}
+        {/* Video Carousel */}
         <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
           <div className="relative max-w-6xl mx-auto">
             <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm shadow-2xl">
               <div
-                className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group"
+                className="relative h-[300px] md:h-[500px] lg:h-[600px] overflow-hidden group"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
-                {/* Images */}
+                {/* Videos */}
                 <div
                   className="flex transition-transform duration-700 ease-in-out h-full"
                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 >
-                  {slides.map((slide, index) => (
-                    <div key={slide.id} className="w-full h-full flex-shrink-0 relative">
-                      <Image
-                        src={slide.image || "/placeholder.svg"}
-                        alt={slide.caption}
-                        fill
-                        className="object-cover rounded-lg ken-burns-effect"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                        quality={85}
-                        priority={index === 0}
-                      />
+                  {videos.map((video, i) => (
+                    <div key={video.id} className="w-full h-full flex-shrink-0 relative">
+                      <video
+                        ref={(el) => (videoRefs.current[i] = el)}
+                        className="w-full h-full object-contain md:object-cover"
+                        playsInline
+                        muted={isMuted}
+                        preload={i === 0 ? "auto" : "metadata"}
+                        loop={false}
+                      >
+                        <source src={video.src} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                   ))}
                 </div>
 
-                {/* Always Visible Caption Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg">
+                {/* Caption */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg pointer-events-none">
                   <div className="absolute bottom-6 left-6 right-6 text-white">
                     <h3 className="text-2xl font-bold mb-2 font-magical-alt transition-all duration-700">
-                      {slides[currentSlide].caption}
+                      
                     </h3>
                     <p className="text-lg opacity-90 font-body-alt transition-all duration-700">
-                      {slides[currentSlide].description}
+                      
                     </p>
                   </div>
                 </div>
 
-                {/* Navigation Arrows */}
-                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                {/* Arrows */}
+                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <Button
                     variant="secondary"
                     size="icon"
                     onClick={goToPrevious}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg"
+                    disabled={isTransitioning}
+                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg pointer-events-auto"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
@@ -211,14 +232,23 @@ Explore the world of Hogwarts Studios — where every reel, product, and campaig
                     variant="secondary"
                     size="icon"
                     onClick={goToNext}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg"
+                    disabled={isTransitioning}
+                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg pointer-events-auto"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </Button>
                 </div>
 
-                {/* Play/Pause Button */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* Controls */}
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:flex">
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    onClick={toggleMute}
+                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg"
+                  >
+                    {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
                   <Button
                     variant="secondary"
                     size="icon"
@@ -231,61 +261,43 @@ Explore the world of Hogwarts Studios — where every reel, product, and campaig
               </div>
             </Card>
 
-            {/* Navigation Dots */}
+            {/* Dots */}
             <div className="flex justify-center mt-6 space-x-2">
-              {slides.map((_, index) => (
+              {videos.map((_, i) => (
                 <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
+                  key={i}
+                  onClick={() => goToSlide(i)}
+                  disabled={isTransitioning}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? "bg-red-600 scale-125 shadow-lg" : "bg-white/40 hover:bg-white/60"
+                    i === currentSlide ? "bg-red-600 scale-125 shadow-lg" : "bg-white/40 hover:bg-white/60"
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to video ${i + 1}`}
                 />
               ))}
             </div>
-                      </div>
-          </LightweightAnimatedCard>
+          </div>
+        </LightweightAnimatedCard>
 
-        {/* Call to Action */}
+        {/* CTA */}
         <div className="text-center mt-16">
           <LightweightAnimatedCard delay={400} duration={600} triggerOnce={true}>
-            <div className="max-w-2xl mx-auto">
-              <p className="text-xl text-foreground/80 mb-5 font-body-alt">
-                Book your session and join us in creating enchanting experiences
-              </p>
-              
-            </div>
+            <p className="text-xl text-foreground/80 mb-5 font-body-alt">
+              Book your session and join us in creating enchanting experiences.
+            </p>
           </LightweightAnimatedCard>
         </div>
       </div>
 
       <style jsx>{`
-        .ken-burns-effect {
-          animation: kenBurns 20s ease-in-out infinite alternate;
-        }
-        
-        @keyframes kenBurns {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1.05);
-          }
-        }
-        
         .floating-particle {
           animation: float 6s ease-in-out infinite;
         }
-        
         .floating-particle-delayed {
           animation: float 6s ease-in-out infinite 2s;
         }
-        
         .glow-pulse {
           animation: glowPulse 3s ease-in-out infinite;
         }
-        
         @keyframes float {
           0%, 100% {
             transform: translateY(0px) rotate(0deg);
@@ -294,7 +306,6 @@ Explore the world of Hogwarts Studios — where every reel, product, and campaig
             transform: translateY(-20px) rotate(180deg);
           }
         }
-        
         @keyframes glowPulse {
           0%, 100% {
             opacity: 0.4;
@@ -305,15 +316,10 @@ Explore the world of Hogwarts Studios — where every reel, product, and campaig
             box-shadow: 0 0 20px currentColor;
           }
         }
-        
-        .btn-glow {
-          box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
-        }
-        
-        .btn-glow:hover {
-          box-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
+        video {
+          background-color: #000;
         }
       `}</style>
     </section>
-  )
+  );
 }
