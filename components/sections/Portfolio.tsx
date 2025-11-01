@@ -25,12 +25,12 @@ export function Portfolio() {
     {
       id: 2,
       src: "/Media/videos/set2.mp4",
-     
+      
     },
     {
       id: 3,
       src: "/Media/videos/set3.mp4",
-     
+      
     },
     {
       id: 4,
@@ -162,7 +162,7 @@ export function Portfolio() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center lg:mb-16 mb-2">
+        <div className="text-center lg:mb-16 mb-7">
           <LightweightAnimatedCard delay={200} duration={600} triggerOnce={true}>
             <h2 className="text-3xl md:text-5xl font-bold mb-2 font-sans">Behind the Magic</h2>
             <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
@@ -176,9 +176,7 @@ export function Portfolio() {
           <div className="relative max-w-6xl mx-auto">
             <Card className="overflow-hidden border-0 bg-white/5 backdrop-blur-sm shadow-2xl">
               <div
-                className="relative h-[300px] md:h-[500px] lg:h-[600px] overflow-hidden group"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
+                className="relative h-[320px] md:h-[500px] lg:h-[600px] overflow-hidden group"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -189,10 +187,10 @@ export function Portfolio() {
                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 >
                   {videos.map((video, i) => (
-                    <div key={video.id} className="w-full h-full flex-shrink-0 relative">
+                    <div key={video.id} className="w-full h-full flex-shrink-0 relative flex items-center justify-center bg-black">
                       <video
                         ref={(el) => (videoRefs.current[i] = el)}
-                        className="w-full h-full object-contain md:object-cover"
+                        className="h-full w-auto max-w-full md:w-full md:h-full md:object-cover"
                         playsInline
                         muted={isMuted}
                         preload={i === 0 ? "auto" : "metadata"}
@@ -212,7 +210,7 @@ export function Portfolio() {
                       
                     </h3>
                     <p className="text-lg opacity-90 font-body-alt transition-all duration-700">
-                      
+                     
                     </p>
                   </div>
                 </div>
