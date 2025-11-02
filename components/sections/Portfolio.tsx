@@ -196,13 +196,14 @@ export function Portfolio() {
                 </div>
 
                 {/* Arrows */}
-                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                
+                <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <Button
                     variant="secondary"
                     size="icon"
                     onClick={goToPrevious}
                     disabled={isTransitioning}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg pointer-events-auto"
+                    className="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border-0 shadow-lg pointer-events-auto"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
@@ -211,7 +212,7 @@ export function Portfolio() {
                     size="icon"
                     onClick={goToNext}
                     disabled={isTransitioning}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border-0 shadow-lg pointer-events-auto"
+                    className="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border-0 shadow-lg pointer-events-auto"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </Button>

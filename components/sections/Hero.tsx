@@ -47,7 +47,7 @@ export function Hero() {
     <>
     <section
   id="home"
-  className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-16"
+  className="relative min-h-screen flex items-center justify-center overflow-hidden pt-8"
 >
 
         {/* Background Image */}
@@ -105,28 +105,42 @@ export function Hero() {
               Your one-stop studio for professional shoots, product, fashion, podcast, outdoor, and more — crafted with cinematic precision.
             </p>
             
-            <div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
+          <div 
+              className="flex flex-col gap-4 justify-center items-center animate-fade-in-up"
               style={{ animationDelay: '400ms' }}
             >
-              <Button 
-                size="lg" 
-                className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 text-lg font-semibold shadow-lg transition-all duration-300 font-body-alt"
-                onClick={() => setIsBookingModalOpen(true)}
-              >
-                Book Service
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
+              {/* First row - Book Service and Call Now */}
+              <div className="flex flex-row gap-4 justify-center items-center w-full sm:w-auto">
+                <Button 
+                  size="lg" 
+                  className="btn-glow bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-2 sm:px-2 py-3 text-base sm:text-lg font-semibold shadow-lg transition-all duration-300 font-body-alt flex-1 sm:flex-initial"
+                  onClick={() => setIsBookingModalOpen(true)}
+                >
+                  Book Service
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="btn-outline-glow border-2 border-red-600 text-red-600 bg-white hover:bg-red-600 hover:text-white dark:border-white dark:text-white dark:bg-transparent dark:hover:bg-white/10 px-2 sm:px-2 py-3 text-base sm:text-lg font-semibold transition-all duration-300 font-body-alt flex-1 sm:flex-initial"
+                  onClick={() => window.location.href = 'tel:08368065462'}
+                >
+                  Call Now
+                </Button>
+              </div>
+              
+              {/* Second row - Studio Walkthrough */}
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="btn-outline-glow play-icon-hover border-2 border-red-600 text-red-600 bg-white hover:bg-red-600 hover:text-white dark:border-white dark:text-white dark:bg-transparent dark:hover:bg-white/10 px-8 py-6 text-lg font-semibold transition-all duration-300 font-body-alt"
+                className="btn-outline-glow play-icon-hover border-2 border-red-600 text-red-600 bg-white hover:bg-red-600 hover:text-white dark:border-white dark:text-white dark:bg-transparent dark:hover:bg-white/10 px-2 lg:px-8 py-3 text-lg font-semibold transition-all duration-300 font-body-alt w-full sm:w-auto"
                 onClick={handleVideoClick}
               >
                 <Play className="mr-2 h-5 w-5 play-icon transition-transform duration-300" />
                 Studio Walkthrough
               </Button>
+              
+              <BookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
             </div>
           </div>
         </div>

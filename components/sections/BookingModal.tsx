@@ -8,21 +8,16 @@ interface BookingModalProps {
   onClose: () => void;
   initialData?: {
     fullName?: string;
-    email?: string;
     phone?: string;
     facilityType?: string;
-    message?: string;
   };
 }
 
 export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModalProps) {
   const [formData, setFormData] = useState({
     fullName: initialData.fullName || '',
-    email: initialData.email || '',
     phone: initialData.phone || '',
-    address: '',
     facilityType: initialData.facilityType || '',
-    message: initialData.message || '',
   });
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -51,18 +46,15 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
     if (!isOpen) {
       setFormData({
         fullName: '',
-        email: '',
         phone: '',
-        address: '',
         facilityType: '',
-        message: '',
       });
       setErrors({});
       setIsSuccess(false);
     }
   }, [isOpen]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
@@ -77,12 +69,6 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
 
     if (!formData.fullName.trim()) {
       newErrors.fullName = 'Full name is required';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
     }
 
     if (!formData.phone.trim()) {
@@ -104,21 +90,11 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
       return;
     }
 
-    // Construct WhatsApp message
+    // Construct WhatsApp message with only 3 fields
     let whatsappMessage = `*New Booking Request*\n\n`;
     whatsappMessage += `*Name:* ${formData.fullName}\n`;
-    whatsappMessage += `*Email:* ${formData.email}\n`;
     whatsappMessage += `*Phone:* ${formData.phone}\n`;
-    
-    if (formData.address.trim()) {
-      whatsappMessage += `*Address:* ${formData.address}\n`;
-    }
-    
-    whatsappMessage += `*Facility Type:* ${formData.facilityType}\n`;
-    
-    if (formData.message.trim()) {
-      whatsappMessage += `*Message:* ${formData.message}\n`;
-    }
+    whatsappMessage += `*Facility Type:* ${formData.facilityType}`;
 
     // Encode the message for URL
     const encodedMessage = encodeURIComponent(whatsappMessage);
@@ -149,9 +125,9 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
         onClick={onClose}
       />
       
-      {/* Modal - More square-like proportions with responsive sizing */}
-      <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg bg-background border border-border rounded-2xl shadow-2xl transform transition-all duration-300 scale-100 animate-in fade-in-0 zoom-in-95 max-h-[90vh] overflow-hidden">
-        {/* Header - More compact */}
+      {/* Modal */}
+      <div className="relative w-full max-w-sm sm:max-w-md bg-background border border-border rounded-2xl shadow-2xl transform transition-all duration-300 scale-100 animate-in fade-in-0 zoom-in-95 max-h-[90vh] overflow-hidden">
+        {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border">
           <h2 className="text-lg sm:text-xl font-bold text-foreground">Book Session</h2>
           <button
@@ -180,140 +156,84 @@ export function BookingModal({ isOpen, onClose, initialData = {} }: BookingModal
           </div>
         )}
 
-        {/* Form - More compact with better spacing */}
+        {/* Form */}
         {!isSuccess && (
           <div className="max-h-[calc(90vh-80px)] overflow-y-auto">
-            <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-3">
-              {/* Two-column layout for larger screens */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* Full Name */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="fullName" className="block text-xs font-medium text-foreground mb-1">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
-                      errors.fullName ? 'border-red-500' : 'border-border'
-                    }`}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.fullName && (
-                    <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
-                  )}
-                </div>
+            <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-4">
+              {/* Full Name */}
+              <div>
+                <label htmlFor="fullName" className="block text-xs font-medium text-foreground mb-1.5">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
+                    errors.fullName ? 'border-red-500' : 'border-border'
+                  }`}
+                  placeholder="Enter your full name"
+                />
+                {errors.fullName && (
+                  <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
+                )}
+              </div>
 
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-xs font-medium text-foreground mb-1">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
-                      errors.email ? 'border-red-500' : 'border-border'
-                    }`}
-                    placeholder="Enter your email"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-                  )}
-                </div>
+              {/* Phone */}
+              <div>
+                <label htmlFor="phone" className="block text-xs font-medium text-foreground mb-1.5">
+                  Phone *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
+                    errors.phone ? 'border-red-500' : 'border-border'
+                  }`}
+                  placeholder="Enter your phone number"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
+              </div>
 
-                {/* Phone */}
-                <div>
-                  <label htmlFor="phone" className="block text-xs font-medium text-foreground mb-1">
-                    Phone *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
-                      errors.phone ? 'border-red-500' : 'border-border'
-                    }`}
-                    placeholder="Phone number"
-                  />
-                  {errors.phone && (
-                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
-                  )}
-                </div>
-
-                {/* Address */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="address" className="block text-xs font-medium text-foreground mb-1">
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Address (optional)"
-                  />
-                </div>
-
-                {/* Facility Type */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="facilityType" className="block text-xs font-medium text-foreground mb-1">
-                    Facility Type *
-                  </label>
-                  <select
-                    id="facilityType"
-                    name="facilityType"
-                    value={formData.facilityType}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
-                      errors.facilityType ? 'border-red-500' : 'border-border'
-                    }`}
-                  >
-                    <option value="">Select facility type</option>
-                    <option value="Ad Shoot">Ad Shoot</option>
-                    <option value="Podcast">Podcast</option>
-                    <option value="Product Shoot">Product Shoot</option>
-                    <option value="Reel Shoot">Reel Shoot</option>
-                    <option value="Other">Other</option>
-                  </select>
-                  {errors.facilityType && (
-                    <p className="text-red-500 text-xs mt-1">{errors.facilityType}</p>
-                  )}
-                </div>
-
-                {/* Message */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="message" className="block text-xs font-medium text-foreground mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={2}
-                    className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-background text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 resize-none"
-                    placeholder="Additional details..."
-                  />
-                </div>
+              {/* Facility Type */}
+              <div>
+                <label htmlFor="facilityType" className="block text-xs font-medium text-foreground mb-1.5">
+                  Service Type *
+                </label>
+                <select
+                  id="facilityType"
+                  name="facilityType"
+                  value={formData.facilityType}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-2 text-sm border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 ${
+                    errors.facilityType ? 'border-red-500' : 'border-border'
+                  }`}
+                >
+                  <option value="">Select Service type</option>
+                  <option value="Ad Shoot">Ad Shoot</option>
+                  <option value="Podcast">Podcast</option>
+                  <option value="Product Shoot">Product Shoot</option>
+                  <option value="Reel Shoot">Reel Shoot</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.facilityType && (
+                  <p className="text-red-500 text-xs mt-1">{errors.facilityType}</p>
+                )}
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 text-sm rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2.5 text-sm rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
               >
-                <Send className="w-3 h-3" />
+                <Send className="w-4 h-4" />
                 <span>Send via WhatsApp</span>
               </Button>
             </form>

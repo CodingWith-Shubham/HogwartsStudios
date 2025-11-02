@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  MapPin, Phone, Mail, Clock, Camera, Map, ExternalLink, Send, CheckCircle, AlertCircle, Play, X,
+  MapPin, Phone, Mail, Clock, Camera, Map, ExternalLink, Send, CheckCircle, AlertCircle, Play, X, Pause, Volume2, VolumeX, Maximize,
 } from 'lucide-react';
 
 export default function Contact() {
@@ -26,6 +26,9 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [showVideo, setShowVideo] = useState(false);
   const [videoLoading, setVideoLoading] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -81,21 +84,55 @@ export default function Contact() {
     }, 2000);
   };
 
-  const handleVideoClick = () => {
-    setVideoLoading(true);
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleMaximize = () => {
+    // Pause the background video when maximizing
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
     setShowVideo(true);
   };
 
   const handleCloseVideo = () => {
     setShowVideo(false);
     setVideoLoading(false);
+    // Resume the background video when closing modal
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const handleVideoLoad = () => {
+    if (videoRef.current) {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        setIsPlaying(false);
+      });
+    }
   };
 
   const studioAddress = 'D-301, near shalom presidency school, Shushant Lok 2, Sector 56, Gurugram, Ghata, Haryana 122011';
-  const studioLatitude = '28.418699567507243';
-  const studioLongitude = '77.10014703443224';
-  const googleMapsUrl = `https://www.google.com/maps?q=${studioLatitude},${studioLongitude}`;
-
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=Hogwarts+Studios,+D-301+Shushant+Lok+2+Sector+56+Gurugram+Haryana`;
   const contactInfo = [
     { icon: MapPin, title: 'Studio Location', content: studioAddress },
     { icon: Phone, title: 'Phone', content: '083680 65462' },
@@ -114,30 +151,30 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg h-full">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-2xl md:text-2xl font-bold">Contact Us</CardTitle>
-            </CardHeader>
+        <div className="space-y-8 lg:space-y-12">
+          {/* Top Row: Contact Form and Get In Touch - Side by Side on Desktop */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-8">
+            {/* Contact Form */}
+            <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg h-full">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-2xl md:text-2xl font-bold">Contact Us</CardTitle>
+              </CardHeader>
 
-            {/* Make CardContent a column flex so we can anchor the button to the bottom and remove extra bottom padding */}
-            <CardContent className="lg:pt-10 pb-3 flex flex-col gap-6">
-              <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-6">
-                <div>
-                  <Label htmlFor="name" className="text-base md:text-lg">Full Name</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => handleChange('name', e.target.value)}
-                    required
-                    className="mt-2 lg:h-20 h-12 text-base md:text-lg"
-                    placeholder="Enter your full name"
-                  />
-                </div>
+              <CardContent className="lg:pt-10 pb-3 flex flex-col gap-6">
+                <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-6">
+                  <div>
+                    <Label htmlFor="name" className="text-base md:text-lg">Full Name</Label>
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => handleChange('name', e.target.value)}
+                      required
+                      className="mt-2 lg:h-20 h-12 text-base md:text-lg"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
 
-                
-                <div className='lg:mt-7'>
+                  <div className='lg:mt-7'>
                     <Label htmlFor="phone" className="text-base md:text-lg">Phone Number</Label>
                     <Input
                       id="phone"
@@ -167,45 +204,41 @@ export default function Contact() {
                       </SelectContent>
                     </Select>
                   </div>
-                
 
-                {/* Status messages stay in the flow; the form will use remaining space */}
-                {submitStatus === 'success' && (
-                  <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                    <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                    <p className="text-green-700 dark:text-green-300 text-sm md:text-base font-medium">
-                      Opening WhatsApp... Please send the message to complete your inquiry.
-                    </p>
+                  {submitStatus === 'success' && (
+                    <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                      <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                      <p className="text-green-700 dark:text-green-300 text-sm md:text-base font-medium">
+                        Opening WhatsApp... Please send the message to complete your inquiry.
+                      </p>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                      <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+                      <p className="text-red-700 dark:text-red-300 text-sm md:text-base font-medium">
+                        Please fill in all required fields correctly.
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="lg:mt-12">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full lg:p-7 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white h-12 text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                    >
+                      <Send className="h-5 w-5" />
+                      Send via WhatsApp
+                    </Button>
                   </div>
-                )}
+                </form>
+              </CardContent>
+            </Card>
 
-                {submitStatus === 'error' && (
-                  <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                    <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-                    <p className="text-red-700 dark:text-red-300 text-sm md:text-base font-medium">
-                      Please fill in all required fields correctly.
-                    </p>
-                  </div>
-                )}
-
-                {/* Anchor button at bottom by using mt-auto so it sits at the end of the form area */}
-                <div className="lg:mt-12">
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full lg:p-7 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white h-12 text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <Send className="h-5 w-5" />
-                    Send via WhatsApp
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Right Column */}
-          <div className="space-y-8 h-full flex flex-col">
-            <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg">
+            {/* Get In Touch */}
+            <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg h-full">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold">Get In Touch</CardTitle>
               </CardHeader>
@@ -262,24 +295,86 @@ export default function Contact() {
                 ))}
               </CardContent>
             </Card>
-
-            {/* Studio Preview with Lazy Video */}
-            <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg">
-              <CardContent className="p-6">
-                <div className="aspect-video bg-gradient-to-br from-red-100 to-yellow-100 dark:from-red-900/20 dark:to-yellow-900/20 rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer hover:from-red-200 hover:to-yellow-200 dark:hover:from-red-800/30 dark:hover:to-yellow-800/30 transition-all duration-300"
-                  onClick={handleVideoClick}>
-                  <div className="text-center z-10">
-                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:bg-red-700 transition-all duration-300 shadow-lg">
-                      <Play className="h-8 w-8 text-white ml-1" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Studio Preview</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Click to watch our podcast setup</p>
-                  </div>
-                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-              </CardContent>
-            </Card>
           </div>
+
+          {/* Bottom Row: Studio Preview - Full Width on Desktop */}
+          <Card className="border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm shadow-lg">
+
+            <CardHeader className="pb-2 md:pb-6 text-center">
+
+              <CardTitle className="text-2xl md:text-3xl lg:text-4xl font-bold">Studio Preview</CardTitle>
+
+            </CardHeader>
+            <CardContent className="p-4 md:p-6 pb-4">
+              <div className="
+      relative 
+      rounded-lg 
+      overflow-hidden 
+      group 
+      aspect-video           /* default = 16/9 on mobile */
+      md:[aspect-ratio:8/4]  /* 8/4 on desktop */
+    "> 
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  loop
+                  muted
+                  playsInline
+                  autoPlay
+                  preload="metadata"
+                  onLoadedData={handleVideoLoad}
+                >
+                  <source src="https://res.cloudinary.com/dvolcl889/video/upload/v1762002119/studiotour_lzorns.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
+                {/* Video Controls Overlay - Always Visible */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 flex items-center justify-between pointer-events-auto">
+                    <div className="flex items-center gap-1.5 md:gap-2">
+                      {/* Play/Pause Button */}
+                      <button
+                        onClick={togglePlayPause}
+                        className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-all hover:scale-110"
+                        aria-label={isPlaying ? 'Pause' : 'Play'}
+                      >
+                        {isPlaying ? (
+                          <Pause className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-900" />
+                        ) : (
+                          <Play className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-900 ml-0.5" />
+                        )}
+                      </button>
+
+                      {/* Mute/Unmute Button */}
+                      <button
+                        onClick={toggleMute}
+                        className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-all hover:scale-110"
+                        aria-label={isMuted ? 'Unmute' : 'Mute'}
+                      >
+                        {isMuted ? (
+                          <VolumeX className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-900" />
+                        ) : (
+                          <Volume2 className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-900" />
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Maximize Button */}
+                    <button
+                      onClick={handleMaximize}
+                      className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-all hover:scale-110"
+                      aria-label="Maximize"
+                    >
+                      <Maximize className="h-3.5 w-3.5 md:h-4 md:w-4 text-gray-900" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Video Label */}
+                
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 

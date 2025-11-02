@@ -1,5 +1,5 @@
 'use client';
-import logowhite from '@/public/Media/logowhite.webp'
+import logowhite from '@/public/Media/logowhite.png'
 import logoblack from '@/public/Media/logoblack.webp'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,10 +25,10 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Instagram, href: 'https://www.instagram.com/hogwartsstudios/?hl=en', label: 'Instagram' },
+    { icon: Twitter, href: 'https://www.facebook.com/p/Hogwarts-Studio-61557239195639/', label: 'Facebook' },
+    { icon: Youtube, href: 'https://www.youtube.com/@HogwartsStudiosGurgaon', label: 'YouTube' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/hogwartsstudio/posts/?feedView=all', label: 'LinkedIn' },
   ];
 
   const { resolvedTheme } = useTheme();
@@ -42,7 +42,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 relative flex items-center justify-center">
+              <div className="w-32 h-32 relative flex items-center justify-center">
                 {mounted && (
                   <Image
                     src={resolvedTheme === 'dark' ? logowhite : logoblack}
@@ -67,8 +67,11 @@ export function Footer() {
                   variant="outline"
                   size="icon"
                   className="w-8 h-8 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                  asChild
                 >
-                  <social.icon className="h-4 w-4" />
+                  <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
+                    <social.icon className="h-4 w-4" />
+                  </a>
                 </Button>
               ))}
             </div>
@@ -135,7 +138,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-foreground/70 font-body-alt">
-            <p>&copy; 2024 Hogwarts Studios. All rights reserved.</p>
+            <p>&copy; 2025 Hogwarts Studios. All rights reserved.</p>
           </div>
           <div className="flex space-x-6 text-sm">
             <a href="#" className="text-foreground/70 hover:text-red-600 transition-colors duration-200 font-body-alt">

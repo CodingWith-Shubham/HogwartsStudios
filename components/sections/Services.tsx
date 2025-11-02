@@ -10,36 +10,43 @@ export function Services() {
     {
       icon: Mic,
       title: 'SETS ON RENT',
-      image: "/Media/hogwartsbg1-min.jpeg",
+      image: 'https://res.cloudinary.com/dvolcl889/image/upload/v1762111708/1_syrzrx.png',
       rating: 4.8,
+      description:
+        'If you already have your own crew and just need the perfect setup — our studio sets are available for rent. Choose from multiple curated environments, from premium podcast sets to lifestyle and product backdrops.',
       features: ['4K Video Recording', 'Professional Audio'],
-      price: 'Starting at ₹ 3500/hour'
+      price: 'Starting at ₹ 3500/hour',
     },
     {
       icon: Camera,
       title: 'SETS + SHOOT',
-      image: "/Media/hogwartsbg2-min.jpeg",
+      image: 'https://res.cloudinary.com/dvolcl889/image/upload/v1762111708/2_dcp5ck.png',
       rating: 4.5,
+      description:
+        'Bring your vision to life with our expert cinematographers and production team. We’ll handle the shoot end-to-end using professional lighting, sound, and camera equipment to ensure high-quality results.',
       features: ['10ft Cyclorama Wall', '360° Product Views'],
-      price: 'Starting at ₹ 3999 only'
+      price: 'Starting at ₹ 3999 only',
     },
     {
       icon: Palette,
-      title: ' SET + SHOOT + EDIT',
-      image: "/Media/hogwartsbg3-min.jpeg",
+      title: 'SET + SHOOT + EDIT',
+      image: 'https://res.cloudinary.com/dvolcl889/image/upload/v1762111707/3_qnj7ct.png',
       rating: 4.9,
+      description:
+        'A complete content production package. From shooting your content in our studio to editing and post-production — our in-house editors will craft the final video that’s ready to publish across platforms.',
       features: ['Professional Makeup', 'Styling Consultation'],
-      price: 'Starting at ₹ 6999 only'
+      price: 'Starting at ₹ 6999 only',
     },
     {
       icon: Sparkles,
-      title: 'SOCIAL MEDIA MANAGEMENT AND MARKETING ',
-      image: "/Media/hogwartsbg4-min.jpeg",
+      title: 'SOCIAL MEDIA MANAGEMENT & MARKETING',
+      image: 'https://res.cloudinary.com/dvolcl889/image/upload/v1762111707/4_avihch.png',
       rating: 4.7,
+      description:
+        'From strategy to execution — we manage your brand’s social media presence, create engaging content, and run performance-driven campaigns to grow your audience and drive measurable results.',
       features: ['Brand Strategy', 'Creative Direction'],
-      
-      price: 'Starting at ₹ 9,999 only'
-    }
+      price: 'Starting at ₹ 9,999 only',
+    },
   ];
 
   const animations = ['right', 'left', 'right', 'left'] as const;
@@ -49,10 +56,10 @@ export function Services() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-2 font-sans lg:mb-7">
-          Services We Master At 
+            Services We Master At
           </h2>
           <p className="text-[15px] text-foreground/80 max-w-2xl mx-auto font-body-alt">
-          Discover what suits you best—don't miss out on our top picks
+            Discover what suits you best—don't miss out on our top picks
           </p>
         </div>
 
@@ -61,7 +68,7 @@ export function Services() {
             const animationType = animations[index % animations.length];
 
             return (
-              <LightweightAnimatedCard 
+              <LightweightAnimatedCard
                 key={index}
                 delay={index * 100}
                 duration={900}
@@ -71,7 +78,7 @@ export function Services() {
                 <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800/50 backdrop-blur-sm h-full">
                   <div className="relative">
                     <div className="relative w-full h-48">
-                      <Image 
+                      <Image
                         src={service.image}
                         alt={service.title}
                         fill
@@ -80,7 +87,6 @@ export function Services() {
                         priority={index < 2}
                       />
                     </div>
-                    
                   </div>
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
@@ -89,7 +95,10 @@ export function Services() {
                         {service.rating} <Star className="w-3 h-3 ml-1 text-white" />
                       </div>
                     </div>
-                    <p className="text-foreground/70 text-sm mb-2">{service.features.join(' • ')}</p>
+                    <p className="text-foreground/70 text-sm mb-3">{service.description}</p>
+                    <p className="text-foreground/70 text-sm mb-2">
+                      {service.features.join(' • ')}
+                    </p>
                     <p className="text-lg font-semibold">{service.price}</p>
                   </CardContent>
                 </Card>

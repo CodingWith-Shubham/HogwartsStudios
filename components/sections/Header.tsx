@@ -1,6 +1,4 @@
 'use client';
-import logowhite from '@/public/Media/logowhite.webp'
-import logoblack from '@/public/Media/logoblack.webp'
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Moon, Sun, Menu, X } from 'lucide-react';
@@ -14,7 +12,7 @@ export function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isToggling, setIsToggling] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false); // 👈 added this
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { theme, setTheme, resolvedTheme } = useTheme();
 
@@ -22,7 +20,6 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  // 👇 Add scroll listener for header background change
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -59,20 +56,20 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-500 ${
           isScrolled
-            ? 'bg-black/90 dark:bg-black backdrop-blur-md shadow-lg' // 👈 when scrolled
-            : 'bg-transparent backdrop-blur-none shadow-none' // 👈 initial transparent
+            ? 'bg-black/90 dark:bg-black backdrop-blur-md shadow-lg'
+            : 'bg-transparent backdrop-blur-none shadow-none'
         }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-20 h-[60px] relative flex items-center justify-center">
+              <div className="w-28 h-[70px] relative flex items-center justify-center">
                 {mounted && (
                   <Image
-                    src={resolvedTheme === 'dark' ? logowhite : logoblack}
+                    src="https://res.cloudinary.com/dvolcl889/image/upload/v1762115764/logowhite_u0ujea.png"
                     alt="Hogwarts Studios Logo"
                     fill
                     style={{ objectFit: 'contain' }}
@@ -81,7 +78,7 @@ export function Header() {
                 )}
               </div>
               <span className="text-[20px] font-bold font-sans text-black dark:text-white">
-                Hogwarts
+                Hogwarts Studios
               </span>
             </div>
 

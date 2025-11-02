@@ -18,10 +18,12 @@ export default function Home() {
         <PromoPopup />
         <Header />
         <Hero />
+         <Portfolio />
+           <Testimonials />
         <Services />
         <About />
-        <Testimonials />
-        <Portfolio />
+      
+       
         <Contact />
         <Footer />
       </div>
