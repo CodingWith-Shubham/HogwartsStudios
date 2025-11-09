@@ -51,6 +51,7 @@ export function Header() {
     { name: 'About', href: '/#about' },
     { name: 'Gallery', href: '/#portfolio' },
     { name: 'Contact', href: '/#contact' },
+    { name: 'Blog', href: '/blog' },
   ];
 
   return (
