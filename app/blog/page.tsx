@@ -3,8 +3,8 @@ import { Footer } from "@/components/sections/Footer";
 import { getDatabase, getPageProperties } from "@/lib/notion";
 import Link from "next/link";
 
+// export const dynamic = 'force-dynamic';
 export const revalidate = 60;
-export const dynamic = 'force-static'; // Add this line
 
 const POSTS_PER_PAGE = 10; // Show all posts or increase the limit
 

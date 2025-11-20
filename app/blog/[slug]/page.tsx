@@ -9,9 +9,9 @@ import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import { MarkdownContent } from "@/components/MarkdownContent";
 
+// export const dynamic = 'force-dynamic';
 export const revalidate = 60;
-export const dynamicParams = true; // Add this line
-
+export const dynamicParams = true;
 export default async function BlogPost({
   params,
 }: {
