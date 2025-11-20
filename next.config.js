@@ -4,11 +4,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // ❌ Removed "output: 'export'" because it breaks ISR, Notion, dynamic routes
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: { unoptimized: true },
+  images: { 
+    unoptimized: true 
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

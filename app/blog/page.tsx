@@ -5,6 +5,7 @@ import Link from "next/link";
 
 // export const dynamic = 'force-dynamic';
 export const revalidate = 60;
+// export const dynamic = 'force-dynamic';
 
 const POSTS_PER_PAGE = 10; // Show all posts or increase the limit
 
