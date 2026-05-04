@@ -52,7 +52,7 @@ export function About() {
     },
     {
       icon: Video,
-      number: '30k+',
+      number: '30000',
       label: 'Reels Created',
       description: 'Engaging short-form video content that captures attention'
     },
