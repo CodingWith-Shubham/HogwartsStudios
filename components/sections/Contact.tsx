@@ -66,7 +66,7 @@ export default function Contact() {
     whatsappMessage += `*Service:* ${formData.service}\n`;
 
     const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappNumber = '918368065462';
+    const whatsappNumber = '919667474789';
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     window.open(whatsappURL, '_blank');
 
@@ -135,7 +135,7 @@ export default function Contact() {
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=Hogwarts+Studios,+D-301+Shushant+Lok+2+Sector+56+Gurugram+Haryana`;
   const contactInfo = [
     { icon: MapPin, title: 'Studio Location', content: studioAddress },
-    { icon: Phone, title: 'Phone', content: '083680 65462' },
+    { icon: Phone, title: 'Phone', content: '9667474789' },
     { icon: Mail, title: 'Email', content: 'info@hogwartsstudios.com' },
     { icon: Clock, title: 'Studio Hours', content: 'Open 24 hours' }
   ];

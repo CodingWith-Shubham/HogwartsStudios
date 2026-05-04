@@ -22,14 +22,14 @@ const PromoPopup = () => {
   };
 
   const handleWhatsApp = () => {
-    const phoneNumber = '918368065462';
-    const message = encodeURIComponent('Hi! I\'m interested in your Year End Mega Deals!');
+    const phoneNumber = '919667474789';
+    const message = encodeURIComponent('Hi! I\'m interested in your customized offers!');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     handleClose();
   };
 
   const handleCall = () => {
-    window.location.href = 'tel:+918368065462';
+    window.location.href = 'tel:+919667474789';
     handleClose();
   };
 
@@ -84,20 +84,20 @@ const PromoPopup = () => {
               {/* Main Heading */}
               <div className="mb-6 space-y-3">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
-                  Year End
+                  Connect for
                   <br />
                   <span className="bg-gradient-to-r from-red-500 via-rose-500 to-red-600 bg-clip-text text-transparent">
-                    Mega Deals
+                    Customised Offers
                   </span>
                 </h1>
-                
+
                 {/* Subtle accent line */}
                 <div className="w-16 h-1 bg-gradient-to-r from-red-600 to-rose-600 rounded-full" />
               </div>
 
               {/* Subtitle */}
               <p className="text-gray-400 text-base md:text-lg mb-10 max-w-md leading-relaxed">
-                Exclusive offers for the season. Limited time only.
+                Exclusive offer for the season – Get your Services Tailored
               </p>
 
               {/* Contact Buttons */}
@@ -126,7 +126,7 @@ const PromoPopup = () => {
               {/* Footer note */}
               <div className="mt-8 pt-6 border-t border-red-900/20">
                 <p className="text-gray-500 text-xs text-center">
-                  Reach out now to discover our exclusive year-end packages
+                  Reach out now - Whatsapp/call 9667474789
                 </p>
               </div>
             </div>

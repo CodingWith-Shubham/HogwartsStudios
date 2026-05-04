@@ -46,19 +46,19 @@ export function About() {
   const achievements = [
     {
       icon: Mic2,
-      number: '1500+',
+      number: '4000+',
       label: 'Podcasts Delivered',
-      description: 'Successfully produced and delivered over 1500 podcasts'
+      description: 'Successfully produced and delivered over 4000 podcasts'
     },
     {
       icon: Video,
-      number: '4000+',
+      number: '30k+',
       label: 'Reels Created',
       description: 'Engaging short-form video content that captures attention'
     },
     {
       icon: Megaphone,
-      number: '100+',
+      number: '200+',
       label: 'Brand Campaigns',
       description: 'Successful marketing campaigns that drive brand growth'
     }
